@@ -1,6 +1,6 @@
-# Defines BitShares library target.
+# Defines LEEDEX library target.
 cmake_minimum_required( VERSION 3.2 FATAL_ERROR )
-project( BitShares LANGUAGES CXX C)
+project( LEEDEX LANGUAGES CXX C)
 
 set( BLOCKCHAIN_NAME "BitShares" )
 
@@ -243,7 +243,7 @@ add_compiler_flag_if_available("-Wunused-but-set-parameter")
 
 if( WIN32 )
 
-    message( STATUS "Configuring BitShares on WIN32")
+    message( STATUS "Configuring LEEDEX on WIN32")
 
     if ( MINGW )
         message( STATUS "Windows build using MinGW" )
@@ -268,15 +268,15 @@ else( WIN32 ) # Apple AND Linux
 
     if( APPLE )
         # Apple Specific Options Here
-        message( STATUS "Configuring BitShares on macOS" )
+        message( STATUS "Configuring LEEDEX on macOS" )
         set( CMAKE_CXX_FLAGS "${CMAKE_C_FLAGS} -stdlib=libc++ -Wall -fvisibility-inlines-hidden -fvisibility=hidden" )
     else( APPLE )
         if ( "${CMAKE_SYSTEM_NAME}" STREQUAL "OpenBSD" )
             # OpenBSD Specific Options
-            message( STATUS "Configuring BitShares on OpenBSD" )
+            message( STATUS "Configuring LEEDEX on OpenBSD" )
         else()
             # Linux Specific Options Here
-            message( STATUS "Configuring BitShares on Linux" )
+            message( STATUS "Configuring LEEDEX on Linux" )
             set( rt_library rt )
         endif()
         # Common Linux & OpenBSD Options
@@ -346,8 +346,8 @@ set(CPACK_PACKAGE_VERSION_MAJOR "${VERSION_MAJOR}")
 set(CPACK_PACKAGE_VERSION_MINOR "${VERSION_MINOR}")
 set(CPACK_PACKAGE_VERSION_PATCH "${VERSION_PATCH}")
 set(CPACK_PACKAGE_VERSION "${CPACK_PACKAGE_VERSION_MAJOR}.${CPACK_PACKAGE_VERSION_MINOR}.${CPACK_PACKAGE_VERSION_PATCH}")
-set(CPACK_PACKAGE_DESCRIPTION "A client for the BitShares network")
-set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A client for the BitShares network")
+set(CPACK_PACKAGE_DESCRIPTION "A client for the LEEDEX network")
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY "A client for the LEEDEX network")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE.md")
 set(CPACK_PACKAGE_INSTALL_DIRECTORY "BitShares ${CPACK_PACKAGE_VERSION}")
 
