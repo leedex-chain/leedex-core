@@ -769,7 +769,7 @@ BOOST_AUTO_TEST_CASE( hello_already_connected )
 
    // get something in the list of connections
    std::pair<std::shared_ptr<test_delegate>, graphene::net::peer_connection_ptr> node2_rslts
-         = node1.create_peer_connection( "127.0.0.1:8090" );
+         = node1.create_peer_connection( "127.0.0.1:8980" );
    auto node2_ptr = node2_rslts.second;
 
    // a new peer (peer3)
@@ -821,7 +821,7 @@ BOOST_AUTO_TEST_CASE( address_request_without_hello )
 
    // get something in the list of connections
    std::pair<std::shared_ptr<test_delegate>, graphene::net::peer_connection_ptr> node2_rslts
-         = node1.create_peer_connection( "127.0.0.1:8090" );
+         = node1.create_peer_connection( "127.0.0.1:8980" );
 
    // a new peer (peer3)
    std::pair<std::shared_ptr<test_delegate>, std::shared_ptr<test_peer>> peer3
@@ -860,7 +860,7 @@ BOOST_AUTO_TEST_CASE( set_nothing_advertise_algorithm )
 
    // get something in the list of connections
    std::pair<std::shared_ptr<test_delegate>, graphene::net::peer_connection_ptr> node2_rslts
-         = node1.create_peer_connection( "127.0.0.1:8090" );
+         = node1.create_peer_connection( "127.0.0.1:8980" );
 
    // a new peer (peer3)
    std::pair<std::shared_ptr<test_delegate>, std::shared_ptr<test_peer>> peer3
@@ -890,16 +890,16 @@ BOOST_AUTO_TEST_CASE( advertise_list_test )
    fake_network_connect_guard guard( node1 );
 
    // set advertise algorithm to "list"
-   std::vector<std::string> advert_list = { "127.0.0.1:8090", "2.3.4.55:1234", "bad_one" };
+   std::vector<std::string> advert_list = { "127.0.0.1:8980", "2.3.4.55:1234", "bad_one" };
    node1.set_advertise_algorithm( "list", advert_list );
 
    // add some connections, 1 of which appears on the advertise_list
    std::pair<std::shared_ptr<test_delegate>, graphene::net::peer_connection_ptr> node1_rslts
          = node1.create_peer_connection("127.0.0.1:8089");
    std::pair<std::shared_ptr<test_delegate>, graphene::net::peer_connection_ptr> node2_rslts
-         = node1.create_peer_connection("127.0.0.1:8090");
+         = node1.create_peer_connection("127.0.0.1:8980");
    std::pair<std::shared_ptr<test_delegate>, graphene::net::peer_connection_ptr> node2_reslts
-         = node1.create_peer_connection("127.0.0.1:8091");
+         = node1.create_peer_connection("127.0.0.1:8981");
 
    // a new peer (peer3)
    std::pair<std::shared_ptr<test_delegate>, std::shared_ptr<test_peer>> peer3
@@ -931,16 +931,16 @@ BOOST_AUTO_TEST_CASE( exclude_list )
    fake_network_connect_guard guard( node1 );
 
    // set advertise algorithm to "exclude_list"
-   std::vector<std::string> ex_list = { "127.0.0.1:8090", "2.3.4.55:1234" };
+   std::vector<std::string> ex_list = { "127.0.0.1:8980", "2.3.4.55:1234" };
    node1.set_advertise_algorithm( "exclude_list", ex_list );
 
    // add some connections, 1 of which appears on the exclude_list
    std::pair<std::shared_ptr<test_delegate>, graphene::net::peer_connection_ptr> node1_rslts
          = node1.create_peer_connection("127.0.0.1:8089");
    std::pair<std::shared_ptr<test_delegate>, graphene::net::peer_connection_ptr> node2_rslts
-         = node1.create_peer_connection("127.0.0.1:8090");
+         = node1.create_peer_connection("127.0.0.1:8980");
    std::pair<std::shared_ptr<test_delegate>, graphene::net::peer_connection_ptr> node2_reslts
-         = node1.create_peer_connection("127.0.0.1:8091");
+         = node1.create_peer_connection("127.0.0.1:8981");
 
    // a new peer (peer3)
    std::pair<std::shared_ptr<test_delegate>, std::shared_ptr<test_peer>> peer3
@@ -978,9 +978,9 @@ BOOST_AUTO_TEST_CASE( advertising_all_test )
    std::pair<std::shared_ptr<test_delegate>, graphene::net::peer_connection_ptr> node1_rslts
          = node1.create_peer_connection("127.0.0.1:8089");
    std::pair<std::shared_ptr<test_delegate>, graphene::net::peer_connection_ptr> node2_rslts
-         = node1.create_peer_connection("127.0.0.1:8090");
+         = node1.create_peer_connection("127.0.0.1:8980");
    std::pair<std::shared_ptr<test_delegate>, graphene::net::peer_connection_ptr> node2_reslts
-         = node1.create_peer_connection("127.0.0.1:8091");
+         = node1.create_peer_connection("127.0.0.1:8981");
 
    // a new peer (peer3)
    std::pair<std::shared_ptr<test_delegate>, std::shared_ptr<test_peer>> peer3

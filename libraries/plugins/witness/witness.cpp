@@ -47,7 +47,7 @@ void new_chain_banner( const graphene::chain::database& db )
       "********************************\n"
       "*                              *\n"
       "*   ------- NEW CHAIN ------   *\n"
-      "*   - Welcome to BitShares! -  *\n"
+      "*   -- Welcome to LEEDEX! --   *\n"
       "*   ------------------------   *\n"
       "*                              *\n"
       "********************************\n"
@@ -63,7 +63,7 @@ void witness_plugin::plugin_set_program_options(
    boost::program_options::options_description& command_line_options,
    boost::program_options::options_description& config_file_options)
 {
-   auto default_priv_key = fc::ecc::private_key::regenerate(fc::sha256::hash(std::string("nathan")));
+   auto default_priv_key = fc::ecc::private_key::regenerate(fc::sha256::hash(std::string("maxirmx")));
    string witness_id_example = fc::json::to_string(chain::witness_id_type(5));
    command_line_options.add_options()
          ("enable-stale-production", bpo::bool_switch()->notifier([this](bool e){_production_enabled = e;}),
@@ -198,7 +198,7 @@ void witness_plugin::plugin_startup()
 void witness_plugin::stop_block_production()
 {
    _shutting_down = true;
-   
+
    try {
       if( _block_production_task.valid() )
          _block_production_task.cancel_and_wait(__FUNCTION__);
@@ -244,7 +244,7 @@ block_production_condition::block_production_condition_enum witness_plugin::bloc
    block_production_condition::block_production_condition_enum result;
    fc::limited_mutable_variant_object capture( GRAPHENE_MAX_NESTED_OBJECTS );
 
-   if (_shutting_down) 
+   if (_shutting_down)
    {
       result = block_production_condition::shutdown;
    }

@@ -100,9 +100,9 @@ RUN chmod a+x /usr/local/bin/bitsharesentry.sh
 VOLUME ["/var/lib/bitshares", "/etc/bitshares"]
 
 # rpc service:
-EXPOSE 8090
+EXPOSE 8980
 # p2p service:
-EXPOSE 1776
+EXPOSE 4776
 
 # Make Docker send SIGINT instead of SIGTERM to the daemon
 STOPSIGNAL SIGINT

@@ -1166,8 +1166,8 @@ string wallet_api::gethelp( const string& method )const
    if( method == "import_key" )
    {
       ss << "usage: import_key ACCOUNT_NAME_OR_ID  WIF_PRIVATE_KEY\n\n";
-      ss << "example: import_key \"1.3.11\" 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3\n";
-      ss << "example: import_key \"usera\" 5KQwrPbwdL6PhXujxW37FSSQZ1JiwsST4cqQzDeyXtP79zkvFD3\n";
+      ss << "example: import_key \"1.3.11\" 5HyNm7eeRRhvQQRLEKyYSC9AKweEv51Z5uZhKT4HndvqjeQw1ja\n";
+      ss << "example: import_key \"usera\" 5HyNm7eeRRhvQQRLEKyYSC9AKweEv51Z5uZhKT4HndvqjeQw1ja\n";
    }
    else if( method == "transfer" )
    {

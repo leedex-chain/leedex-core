@@ -77,8 +77,12 @@ namespace bpo = boost::program_options;
 namespace detail {
 
    graphene::chain::genesis_state_type create_example_genesis() {
-      auto nathan_key = fc::ecc::private_key::regenerate(fc::sha256::hash(string("nathan")));
-      dlog("Allocating all stake to ${key}", ("key", utilities::key_to_wif(nathan_key)));
+// Running tests with
+//   account: maxirmx
+//   private key: 5J2DJUwVnuDjs21C44cN8me8ehqzY15VeGEJGB8w3ThfJS6hpra
+//   public key: LD57kTzXtqBdaUkaXmrjsjytRqABVvKDx9jMvDYkfpa6bf8eVC3y
+      auto maxirmx_key = fc::ecc::private_key::regenerate(fc::sha256::hash(string("maxirmx")));
+      dlog("Allocating all stake to ${key}", ("key", utilities::key_to_wif(maxirmx_key)));
       graphene::chain::genesis_state_type initial_state;
       initial_state.initial_parameters.get_mutable_fees() = fee_schedule::get_default();
       initial_state.initial_active_witnesses = GRAPHENE_DEFAULT_MIN_WITNESS_COUNT;
@@ -89,15 +93,15 @@ namespace detail {
       {
          auto name = "init"+fc::to_string(i);
          initial_state.initial_accounts.emplace_back(name,
-                                                     nathan_key.get_public_key(),
-                                                     nathan_key.get_public_key(),
+                                                     maxirmx_key.get_public_key(),
+                                                     maxirmx_key.get_public_key(),
                                                      true);
          initial_state.initial_committee_candidates.push_back({name});
-         initial_state.initial_witness_candidates.push_back({name, nathan_key.get_public_key()});
+         initial_state.initial_witness_candidates.push_back({name, maxirmx_key.get_public_key()});
       }
 
-      initial_state.initial_accounts.emplace_back("nathan", nathan_key.get_public_key());
-      initial_state.initial_balances.push_back({address(nathan_key.get_public_key()),
+      initial_state.initial_accounts.emplace_back("maxirmx", maxirmx_key.get_public_key());
+      initial_state.initial_balances.push_back({address(maxirmx_key.get_public_key()),
                                                 GRAPHENE_SYMBOL,
                                                 GRAPHENE_MAX_SHARE_SUPPLY});
       initial_state.initial_chain_id = fc::sha256::hash( "BOGUS" );
@@ -121,7 +125,7 @@ application_impl::~application_impl()
 
 void application_impl::reset_p2p_node(const fc::path& data_dir)
 { try {
-   _p2p_network = std::make_shared<net::node>("BitShares Reference Implementation");
+   _p2p_network = std::make_shared<net::node>("LEEDEX Reference Implementation");
 
    _p2p_network->load_configuration(data_dir / "p2p");
    _p2p_network->set_node_delegate(shared_from_this());
@@ -1203,7 +1207,7 @@ void application::set_program_options(boost::program_options::options_descriptio
           "JSON array of P2P peers to connect to on startup")
          ("checkpoint,c", bpo::value<vector<string>>()->composing(),
           "Pairs of [BLOCK_NUM,BLOCK_ID] that should be enforced as checkpoints.")
-         ("rpc-endpoint", bpo::value<string>()->implicit_value("127.0.0.1:8090"),
+         ("rpc-endpoint", bpo::value<string>()->implicit_value("127.0.0.1:8980"),
           "Endpoint for websocket RPC to listen on")
          ("rpc-tls-endpoint", bpo::value<string>()->implicit_value("127.0.0.1:8089"),
           "Endpoint for TLS websocket RPC to listen on")

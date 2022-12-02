@@ -550,7 +550,7 @@ class wallet_api
        */
       string  gethelp( const string& method )const;
 
-      /** Loads a specified BitShares wallet.
+      /** Loads a specified LEEDEXllet.
        *
        * The current wallet is closed before the new wallet is loaded.
        *
@@ -645,23 +645,23 @@ class wallet_api
        */
       bool import_key( const string& account_name_or_id, const string& wif_key )const;
 
-      /** Imports accounts from a BitShares 0.x wallet file.
+      /** Imports accounts from a LEEDEXx wallet file.
        * Current wallet file must be unlocked to perform the import.
        *
-       * @param filename the BitShares 0.x wallet file to import
-       * @param password the password to encrypt the BitShares 0.x wallet file
+       * @param filename the LEEDEXx wallet file to import
+       * @param password the password to encrypt the LEEDEXx wallet file
        * @returns a map containing the accounts found and whether imported
        */
       map<string, bool, std::less<>> import_accounts( const string& filename, const string& password )const;
 
-      /** Imports from a BitShares 0.x wallet file, find keys that were bound to a given account name on the
-       * BitShares 0.x chain, rebind them to an account name on the 2.0 chain.
+      /** Imports from a LEEDEXx wallet file, find keys that were bound to a given account name on the
+       * LEEDEXx chain, rebind them to an account name on the 2.0 chain.
        * Current wallet file must be unlocked to perform the import.
        *
-       * @param filename the BitShares 0.x wallet file to import
-       * @param password the password to encrypt the BitShares 0.x wallet file
-       * @param src_account_name name of the account on BitShares 0.x chain
-       * @param dest_account_name name of the account on BitShares 2.0 chain,
+       * @param filename the LEEDEXx wallet file to import
+       * @param password the password to encrypt the LEEDEXx wallet file
+       * @param src_account_name name of the account on LEEDEXx chain
+       * @param dest_account_name name of the account on LEEDEX0 chain,
        *                          can be same or different to \c src_account_name
        * @returns whether the import has succeeded
        */
@@ -981,7 +981,7 @@ class wallet_api
 
       /** Place a limit order attempting to sell one asset for another.
        *
-       * Buying and selling are the same operation on BitShares. If you want to buy BTS
+       * Buying and selling are the same operation on LEEDEX. If you want to buy BTS
        * with USD, you should sell USD for BTS.
        *
        * The blockchain will attempt to sell the \c symbol_or_id_to_sell for as

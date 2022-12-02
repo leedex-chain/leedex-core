@@ -25,6 +25,7 @@
 #include <graphene/protocol/pts_address.hpp>
 #include <fc/crypto/base58.hpp>
 #include <algorithm>
+#include <iostream>
 
 #include <fc/io/raw.hpp>
 
@@ -56,13 +57,14 @@ namespace graphene { namespace protocol {
         return false;
       }
 
-      if( v.size() != sizeof( fc::ripemd160 ) + 4 )
+      if( v.size() != sizeof( fc::ripemd160 ) + 4 ) {
           return false;
+      }
 
       const fc::ripemd160 checksum = fc::ripemd160::hash( v.data(), v.size() - 4 );
-      if( memcmp( v.data() + 20, (char*)checksum._hash, 4 ) != 0 )
+      if( memcmp( v.data() + 20, (char*)checksum._hash, 4 ) != 0 ) {
           return false;
-
+      }
       return true;
    }
 

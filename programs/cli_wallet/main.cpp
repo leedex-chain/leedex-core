@@ -131,11 +131,11 @@ int main( int argc, char** argv )
       boost::program_options::options_description opts;
          opts.add_options()
          ("help,h", "Print this help message and exit.")
-         ("server-rpc-endpoint,s", bpo::value<string>()->implicit_value("ws://127.0.0.1:8090"),
+         ("server-rpc-endpoint,s", bpo::value<string>()->implicit_value("ws://127.0.0.1:8980"),
                "Server websocket RPC endpoint")
          ("server-rpc-user,u", bpo::value<string>(), "Server Username")
          ("server-rpc-password,p", bpo::value<string>(), "Server Password")
-         ("rpc-endpoint,r", bpo::value<string>()->implicit_value("127.0.0.1:8091"),
+         ("rpc-endpoint,r", bpo::value<string>()->implicit_value("127.0.0.1:8981"),
                "Endpoint for wallet websocket RPC to listen on (DEPRECATED, use rpc-http-endpoint instead)")
          ("rpc-tls-endpoint,t", bpo::value<string>()->implicit_value("127.0.0.1:8092"),
                "Endpoint for wallet websocket TLS RPC to listen on")
@@ -297,7 +297,7 @@ int main( int argc, char** argv )
       if( options.count( "daemon" ) == 0 )
       {
          auto wallet_cli = std::make_shared<fc::rpc::cli>( GRAPHENE_MAX_NESTED_OBJECTS );
-         
+
          wallet_cli->set_regex_secret("\\s*(unlock|set_password)\\s*");
 
          for( auto& name_formatter : wapiptr->get_result_formatters() )

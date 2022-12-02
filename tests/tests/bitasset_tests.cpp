@@ -142,7 +142,7 @@ const graphene::chain::asset_object& create_bitasset_backed(graphene::chain::dat
  */
 BOOST_AUTO_TEST_CASE( reset_backing_asset_on_witness_asset )
 {
-   ACTORS((nathan));
+   ACTORS((maxirmx));
 
    /*
        // do a maintenance block
@@ -162,14 +162,14 @@ BOOST_AUTO_TEST_CASE( reset_backing_asset_on_witness_asset )
 
    {
       BOOST_TEST_MESSAGE("Update the USDBIT asset options");
-      change_asset_options(*this, nathan_id, nathan_private_key, bit_usd_id, false );
+      change_asset_options(*this, maxirmx_id, maxirmx_private_key, bit_usd_id, false );
    }
 
    BOOST_TEST_MESSAGE("Create JMJBIT based on USDBIT.");
    asset_id_type bit_jmj_id = create_bitasset("JMJBIT").get_id();
    {
       BOOST_TEST_MESSAGE("Update the JMJBIT asset options");
-      change_asset_options(*this, nathan_id, nathan_private_key, bit_jmj_id, true );
+      change_asset_options(*this, maxirmx_id, maxirmx_private_key, bit_jmj_id, true );
    }
 
    {
@@ -181,7 +181,7 @@ BOOST_AUTO_TEST_CASE( reset_backing_asset_on_witness_asset )
       ba_op.new_options.short_backing_asset = bit_usd_id;
       ba_op.new_options.minimum_feeds = 1;
       trx.operations.push_back(ba_op);
-      sign(trx, nathan_private_key);
+      sign(trx, maxirmx_private_key);
       PUSH_TX(db, trx, ~0);
       generate_block();
       trx.clear();
@@ -220,7 +220,7 @@ BOOST_AUTO_TEST_CASE( reset_backing_asset_on_witness_asset )
    }
    {
       BOOST_TEST_MESSAGE("Change underlying asset of bit_jmj from bit_usd to core");
-      change_backing_asset(*this, nathan_private_key, bit_jmj_id, core_id);
+      change_backing_asset(*this, maxirmx_private_key, bit_jmj_id, core_id);
 
       BOOST_TEST_MESSAGE("Verify feed producers have not been reset");
       const asset_bitasset_data_object& jmj_obj = bit_jmj_id(db).bitasset_data(db);
@@ -256,7 +256,7 @@ BOOST_AUTO_TEST_CASE( reset_backing_asset_on_witness_asset )
    }
    {
       BOOST_TEST_MESSAGE("After hardfork, change underlying asset of bit_jmj from core to bit_usd");
-      change_backing_asset(*this, nathan_private_key, bit_jmj_id, bit_usd_id);
+      change_backing_asset(*this, maxirmx_private_key, bit_jmj_id, bit_usd_id);
 
       BOOST_TEST_MESSAGE("Verify feed producers have been reset");
       const asset_bitasset_data_object& jmj_obj = bit_jmj_id(db).bitasset_data(db);
@@ -280,7 +280,7 @@ BOOST_AUTO_TEST_CASE( reset_backing_asset_on_witness_asset )
  */
 BOOST_AUTO_TEST_CASE( reset_backing_asset_on_non_witness_asset )
 {
-   ACTORS((nathan)(dan)(ben)(vikram));
+   ACTORS((maxirmx)(dan)(ben)(vikram));
 
    BOOST_TEST_MESSAGE("Advance to near hard fork");
    auto maint_interval = db.get_global_properties().parameters.maintenance_interval;
@@ -294,14 +294,14 @@ BOOST_AUTO_TEST_CASE( reset_backing_asset_on_non_witness_asset )
 
    {
       BOOST_TEST_MESSAGE("Update the USDBIT asset options");
-      change_asset_options(*this, nathan_id, nathan_private_key, bit_usd_id, false );
+      change_asset_options(*this, maxirmx_id, maxirmx_private_key, bit_usd_id, false );
    }
 
    BOOST_TEST_MESSAGE("Create JMJBIT based on USDBIT.");
    asset_id_type bit_jmj_id = create_bitasset("JMJBIT").get_id();
    {
       BOOST_TEST_MESSAGE("Update the JMJBIT asset options");
-      change_asset_options(*this, nathan_id, nathan_private_key, bit_jmj_id, false );
+      change_asset_options(*this, maxirmx_id, maxirmx_private_key, bit_jmj_id, false );
    }
    {
       BOOST_TEST_MESSAGE("Update the JMJBIT bitasset options");
@@ -312,7 +312,7 @@ BOOST_AUTO_TEST_CASE( reset_backing_asset_on_non_witness_asset )
       ba_op.new_options.short_backing_asset = bit_usd_id;
       ba_op.new_options.minimum_feeds = 1;
       trx.operations.push_back(ba_op);
-      sign(trx, nathan_private_key);
+      sign(trx, maxirmx_private_key);
       PUSH_TX(db, trx, ~0);
       generate_block();
       trx.clear();
@@ -321,10 +321,10 @@ BOOST_AUTO_TEST_CASE( reset_backing_asset_on_non_witness_asset )
       BOOST_TEST_MESSAGE("Set feed producers for JMJBIT");
       asset_update_feed_producers_operation op;
       op.asset_to_update = bit_jmj_id;
-      op.issuer = nathan_id;
+      op.issuer = maxirmx_id;
       op.new_feed_producers = {dan_id, ben_id, vikram_id};
       trx.operations.push_back(op);
-      sign( trx, nathan_private_key );
+      sign( trx, maxirmx_private_key );
       PUSH_TX( db, trx, ~0 );
       generate_block();
       trx.clear();
@@ -368,7 +368,7 @@ BOOST_AUTO_TEST_CASE( reset_backing_asset_on_non_witness_asset )
    }
    {
       BOOST_TEST_MESSAGE("Change underlying asset of bit_jmj from bit_usd to core");
-      change_backing_asset(*this, nathan_private_key, bit_jmj_id, core_id);
+      change_backing_asset(*this, maxirmx_private_key, bit_jmj_id, core_id);
 
       BOOST_TEST_MESSAGE("Verify feed producers have not been reset");
       const asset_bitasset_data_object& jmj_obj = bit_jmj_id(db).bitasset_data(db);
@@ -401,7 +401,7 @@ BOOST_AUTO_TEST_CASE( reset_backing_asset_on_non_witness_asset )
    }
    {
       BOOST_TEST_MESSAGE("After hardfork, change underlying asset of bit_jmj from core to bit_usd");
-      change_backing_asset(*this, nathan_private_key, bit_jmj_id, bit_usd_id);
+      change_backing_asset(*this, maxirmx_private_key, bit_jmj_id, bit_usd_id);
 
       BOOST_TEST_MESSAGE("Verify feed producers have been reset");
       const asset_bitasset_data_object& jmj_obj = bit_jmj_id(db).bitasset_data(db);
@@ -635,7 +635,7 @@ BOOST_AUTO_TEST_CASE( bitasset_evaluator_test_before_922_931 )
    generate_blocks( HARDFORK_CORE_922_931_TIME - global_params.maintenance_interval );
    trx.set_expiration( HARDFORK_CORE_922_931_TIME - global_params.maintenance_interval + global_params.maximum_time_until_expiration );
 
-   ACTORS( (nathan) (john) );
+   ACTORS( (maxirmx) (john) );
 
    assets_922_931 asset_objs = create_assets_922_931( this );
    const asset_id_type bit_usd_id = asset_objs.bit_usd;
@@ -781,7 +781,7 @@ BOOST_AUTO_TEST_CASE( bitasset_evaluator_test_after_922_931 )
    generate_blocks( HARDFORK_CORE_922_931_TIME + global_params.maintenance_interval );
    trx.set_expiration( HARDFORK_CORE_922_931_TIME + global_params.maintenance_interval + global_params.maximum_time_until_expiration );
 
-   ACTORS( (nathan) (john) );
+   ACTORS( (maxirmx) (john) );
 
    assets_922_931 asset_objs = create_assets_922_931( this );
    const asset_id_type& bit_usd_id = asset_objs.bit_usd;
@@ -1164,7 +1164,7 @@ BOOST_AUTO_TEST_CASE( hf_1270_test )
 
 BOOST_AUTO_TEST_CASE( bitasset_secondary_index )
 {
-   ACTORS( (nathan) );
+   ACTORS( (maxirmx) );
 
    graphene::chain::asset_id_type core_id;
    BOOST_TEST_MESSAGE( "Running test bitasset_secondary_index" );
@@ -1175,24 +1175,24 @@ BOOST_AUTO_TEST_CASE( bitasset_secondary_index )
       // make 5 coins (backed by core)
       for(int i = 0; i < 5; i++)
       {
-         create_bitasset_backed(*this, i, core_id, nathan_private_key);
+         create_bitasset_backed(*this, i, core_id, maxirmx_private_key);
       }
       // make the next 5 (10-14) be backed by COIN1
       graphene::chain::asset_id_type coin1_id = get_asset("COIN1TEST").get_id();
       for(int i = 5; i < 10; i++)
       {
-         create_bitasset_backed(*this, i, coin1_id, nathan_private_key);
+         create_bitasset_backed(*this, i, coin1_id, maxirmx_private_key);
       }
       // make the next 5 (15-19) be backed by COIN2
       graphene::chain::asset_id_type coin2_id = get_asset("COIN2TEST").get_id();
       for(int i = 10; i < 15; i++)
       {
-         create_bitasset_backed(*this, i, coin2_id, nathan_private_key);
+         create_bitasset_backed(*this, i, coin2_id, maxirmx_private_key);
       }
       // make the last 5 be backed by core
       for(int i = 15; i < 20; i++)
       {
-         create_bitasset_backed(*this, i, core_id, nathan_private_key);
+         create_bitasset_backed(*this, i, core_id, maxirmx_private_key);
       }
 
       BOOST_TEST_MESSAGE("Searching for all coins backed by CORE");
@@ -1245,7 +1245,7 @@ BOOST_AUTO_TEST_CASE( bitasset_secondary_index )
 /*
 BOOST_AUTO_TEST_CASE( reset_backing_asset_switching_to_witness_fed )
 {
-   ACTORS((nathan)(dan)(ben)(vikram));
+   ACTORS((maxirmx)(dan)(ben)(vikram));
 
    BOOST_TEST_MESSAGE("Advance to near hard fork");
    auto maint_interval = db.get_global_properties().parameters.maintenance_interval;
@@ -1259,14 +1259,14 @@ BOOST_AUTO_TEST_CASE( reset_backing_asset_switching_to_witness_fed )
 
    {
       BOOST_TEST_MESSAGE("Update the USDBIT asset options");
-      change_asset_options(*this, nathan_id, nathan_private_key, bit_usd_id, false );
+      change_asset_options(*this, maxirmx_id, maxirmx_private_key, bit_usd_id, false );
    }
 
    BOOST_TEST_MESSAGE("Create JMJBIT based on USDBIT.");
    asset_id_type bit_jmj_id = create_bitasset("JMJBIT").get_id();
    {
       BOOST_TEST_MESSAGE("Update the JMJBIT asset options");
-      change_asset_options(*this, nathan_id, nathan_private_key, bit_jmj_id, false );
+      change_asset_options(*this, maxirmx_id, maxirmx_private_key, bit_jmj_id, false );
    }
    {
       BOOST_TEST_MESSAGE("Update the JMJBIT bitasset options");
@@ -1277,7 +1277,7 @@ BOOST_AUTO_TEST_CASE( reset_backing_asset_switching_to_witness_fed )
       ba_op.new_options.short_backing_asset = bit_usd_id;
       ba_op.new_options.minimum_feeds = 1;
       trx.operations.push_back(ba_op);
-      sign(trx, nathan_private_key);
+      sign(trx, maxirmx_private_key);
       PUSH_TX(db, trx, ~0);
       generate_block();
       trx.clear();
@@ -1286,10 +1286,10 @@ BOOST_AUTO_TEST_CASE( reset_backing_asset_switching_to_witness_fed )
       BOOST_TEST_MESSAGE("Set feed producers for JMJBIT");
       asset_update_feed_producers_operation op;
       op.asset_to_update = bit_jmj_id;
-      op.issuer = nathan_id;
+      op.issuer = maxirmx_id;
       op.new_feed_producers = {dan_id, ben_id, vikram_id};
       trx.operations.push_back(op);
-      sign( trx, nathan_private_key );
+      sign( trx, maxirmx_private_key );
       PUSH_TX( db, trx, ~0 );
       generate_block();
       trx.clear();
@@ -1320,11 +1320,11 @@ BOOST_AUTO_TEST_CASE( reset_backing_asset_switching_to_witness_fed )
    {
       BOOST_TEST_MESSAGE("Change JMJBIT to be witness_fed");
       optional<account_id_type> noone;
-      change_asset_options(*this, noone, nathan_private_key, bit_jmj_id, true );
+      change_asset_options(*this, noone, maxirmx_private_key, bit_jmj_id, true );
    }
    {
       BOOST_TEST_MESSAGE("Change underlying asset of bit_jmj from bit_usd to core");
-      change_backing_asset(*this, nathan_private_key, bit_jmj_id, core_id);
+      change_backing_asset(*this, maxirmx_private_key, bit_jmj_id, core_id);
 
       BOOST_TEST_MESSAGE("Verify feed producers have not been reset");
       const asset_bitasset_data_object& jmj_obj = bit_jmj_id(db).bitasset_data(db);
@@ -1368,7 +1368,7 @@ BOOST_AUTO_TEST_CASE( reset_backing_asset_switching_to_witness_fed )
    }
    {
       BOOST_TEST_MESSAGE("After hardfork, change underlying asset of bit_jmj from core to bit_usd");
-      change_backing_asset(*this, nathan_private_key, bit_jmj_id, bit_usd_id);
+      change_backing_asset(*this, maxirmx_private_key, bit_jmj_id, bit_usd_id);
 
       BOOST_TEST_MESSAGE("Verify feed producers have been reset");
       const asset_bitasset_data_object& jmj_obj = bit_jmj_id(db).bitasset_data(db);

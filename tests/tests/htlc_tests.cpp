@@ -199,7 +199,7 @@ htlc_create_operation create_htlc(const database& db, const account_id_type& fro
 /****
  * @brief helper to create a proposal
  */
-proposal_create_operation create_proposal(const database& db, const account_id_type& from, 
+proposal_create_operation create_proposal(const database& db, const account_id_type& from,
       const htlc_create_operation& op, const fc::time_point_sec& expiration)
 {
       proposal_create_operation ret_val;
@@ -242,7 +242,7 @@ try {
       data.from = alice_public_key;
       data.to = bob_public_key;
       data.set_message( alice_private_key, bob_public_key, "Dear Bob,\n\nMoney!\n\nLove, Alice");
-      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id, 
+      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id,
             asset(3 * GRAPHENE_BLOCKCHAIN_PRECISION), hash_it<fc::sha256>(pre_image), 0, 60, data);
       graphene::chain::proposal_create_operation prop1 = create_proposal(
             db, alice_id, create_operation, db.head_block_time() + 100);
@@ -250,10 +250,10 @@ try {
       sign(trx, alice_private_key);
       REQUIRE_EXCEPTION_WITH_TEXT(PUSH_TX(db, trx, ~0), "memo");
       trx.clear();
-   }   
+   }
    {
       BOOST_TEST_MESSAGE("Alice is creating a proposal with HASH160 (should fail)");
-      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id, 
+      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id,
             asset(3 * GRAPHENE_BLOCKCHAIN_PRECISION), hash_it<fc::hash160>(pre_image), 0, 60);
       graphene::chain::proposal_create_operation prop1 = create_proposal(
             db, alice_id, create_operation, db.head_block_time() + 100);
@@ -264,7 +264,7 @@ try {
    }
    {
       BOOST_TEST_MESSAGE("Alice is creating a proposal with a preimage size of 0 (should pass)");
-      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id, 
+      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id,
             asset(3 * GRAPHENE_BLOCKCHAIN_PRECISION), hash_it<fc::sha256>(pre_image), 0, 60);
       graphene::chain::proposal_create_operation prop1 = create_proposal(
             db, alice_id, create_operation, db.head_block_time() + 100);
@@ -282,16 +282,16 @@ try {
       data.from = alice_public_key;
       data.to = bob_public_key;
       data.set_message( alice_private_key, bob_public_key, "Dear Bob,\n\nMoney!\n\nLove, Alice");
-      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id, 
+      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id,
             asset(3 * GRAPHENE_BLOCKCHAIN_PRECISION), hash_it<fc::sha256>(pre_image), 0, 60, data);
       trx.operations.push_back(create_operation);
       sign(trx, alice_private_key);
       REQUIRE_EXCEPTION_WITH_TEXT(PUSH_TX(db, trx, ~0), "memo");
       trx.clear();
-   }   
+   }
    {
       BOOST_TEST_MESSAGE("Alice is creating an HTLC with HASH160 (should fail)");
-      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id, 
+      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id,
             asset(3 * GRAPHENE_BLOCKCHAIN_PRECISION), hash_it<fc::hash160>(pre_image), 0, 60);
       trx.operations.push_back(create_operation);
       sign(trx, alice_private_key);
@@ -300,7 +300,7 @@ try {
    }
    {
       BOOST_TEST_MESSAGE("Alice is creating an HTLC with a preimage size of 0 (should pass)");
-      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id, 
+      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id,
             asset(3 * GRAPHENE_BLOCKCHAIN_PRECISION), hash_it<fc::sha256>(pre_image), 0, 60);
       trx.operations.push_back(create_operation);
       sign(trx, alice_private_key);
@@ -361,7 +361,7 @@ try {
       data.from = alice_public_key;
       data.to = bob_public_key;
       data.set_message( alice_private_key, bob_public_key, "Dear Bob,\n\nMoney!\n\nLove, Alice");
-      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id, 
+      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id,
             asset(3 * GRAPHENE_BLOCKCHAIN_PRECISION), hash_it<fc::sha256>(pre_image), 0, 60, data);
       graphene::chain::proposal_create_operation prop1 = create_proposal(
             db, alice_id, create_operation, db.head_block_time() + 100);
@@ -369,10 +369,10 @@ try {
       sign(trx, alice_private_key);
       PUSH_TX(db, trx, ~0);
       trx.clear();
-   }   
+   }
    {
       BOOST_TEST_MESSAGE("Alice is creating a proposal with HASH160 (should pass)");
-      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id, 
+      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id,
             asset(3 * GRAPHENE_BLOCKCHAIN_PRECISION), hash_it<fc::hash160>(pre_image), 0, 60);
       graphene::chain::proposal_create_operation prop1 = create_proposal(
             db, alice_id, create_operation, db.head_block_time() + 100);
@@ -383,7 +383,7 @@ try {
    }
    {
       BOOST_TEST_MESSAGE("Alice is creating a proposal with a preimage size of 0 (should pass)");
-      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id, 
+      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id,
             asset(3 * GRAPHENE_BLOCKCHAIN_PRECISION), hash_it<fc::sha256>(pre_image), 0, 60);
       graphene::chain::proposal_create_operation prop1 = create_proposal(
             db, alice_id, create_operation, db.head_block_time() + 100);
@@ -401,16 +401,16 @@ try {
       data.from = alice_public_key;
       data.to = bob_public_key;
       data.set_message( alice_private_key, bob_public_key, "Dear Bob,\n\nMoney!\n\nLove, Alice");
-      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id, 
+      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id,
             asset(3 * GRAPHENE_BLOCKCHAIN_PRECISION), hash_it<fc::sha256>(pre_image), 0, 60, data);
       trx.operations.push_back(create_operation);
       sign(trx, alice_private_key);
       PUSH_TX(db, trx, ~0);
       trx.clear();
-   }   
+   }
    {
       BOOST_TEST_MESSAGE("Alice is creating an HTLC with HASH160 (should pass)");
-      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id, 
+      graphene::chain::htlc_create_operation create_operation = create_htlc(db, alice_id, bob_id,
             asset(3 * GRAPHENE_BLOCKCHAIN_PRECISION), hash_it<fc::hash160>(pre_image), 0, 60);
       trx.operations.push_back(create_operation);
       sign(trx, alice_private_key);
@@ -530,7 +530,7 @@ try {
    transfer( committee_account, joker_id, graphene::chain::asset(init_balance) );
 
    advance_past_htlc_first_hardfork(this);
-   
+
    uint16_t preimage_size = 256;
    std::vector<char> pre_image(preimage_size);
    generate_random_preimage(preimage_size, pre_image);
@@ -612,7 +612,7 @@ BOOST_AUTO_TEST_CASE( other_peoples_money )
 {
 try {
    advance_past_htlc_first_hardfork(this);
-	
+
    ACTORS((alice)(bob));
 
    int64_t init_balance(100 * GRAPHENE_BLOCKCHAIN_PRECISION );
@@ -661,7 +661,7 @@ try {
 }
 
 BOOST_AUTO_TEST_CASE( htlc_hardfork_test )
-{ 
+{
    try {
 
       {
@@ -798,17 +798,17 @@ BOOST_AUTO_TEST_CASE( htlc_hardfork_test )
       generate_block();   // get the maintenance skip slots out of the way
 
       BOOST_TEST_MESSAGE( "Verify that the change has been implemented" );
-      
+
       BOOST_CHECK_EQUAL(db.get_global_properties()
             .parameters.extensions.value.updatable_htlc_options->max_preimage_size, 2048u);
       const graphene::chain::fee_schedule& current_fee_schedule =
             *(db.get_global_properties().parameters.current_fees);
-      const htlc_create_operation::fee_parameters_type& htlc_fee 
+      const htlc_create_operation::fee_parameters_type& htlc_fee
             = current_fee_schedule.get<htlc_create_operation>();
       BOOST_CHECK_EQUAL(htlc_fee.fee, 2 * GRAPHENE_BLOCKCHAIN_PRECISION);
 
-   } 
-   FC_LOG_AND_RETHROW() 
+   }
+   FC_LOG_AND_RETHROW()
 }
 
 BOOST_AUTO_TEST_CASE( htlc_before_hardfork )
@@ -957,20 +957,20 @@ BOOST_AUTO_TEST_CASE( fee_calculations )
 BOOST_AUTO_TEST_CASE( htlc_blacklist )
 {
 try {
-   ACTORS((nathan)(alice)(bob));
+   ACTORS((maxirmx)(alice)(bob));
 
-   upgrade_to_lifetime_member( nathan );
+   upgrade_to_lifetime_member( maxirmx );
 
    // create a UIA
-   const asset_id_type uia_id = create_user_issued_asset( "NATHANCOIN", nathan, white_list ).get_id();
+   const asset_id_type uia_id = create_user_issued_asset( "MAXIRMXCOIN", maxirmx, white_list ).get_id();
    // Make a whitelist authority
    {
       BOOST_TEST_MESSAGE( "Changing the whitelist authority" );
       asset_update_operation uop;
-      uop.issuer = nathan_id;
+      uop.issuer = maxirmx_id;
       uop.asset_to_update = uia_id;
       uop.new_options = uia_id(db).options;
-      uop.new_options.blacklist_authorities.insert(nathan_id);
+      uop.new_options.blacklist_authorities.insert(maxirmx_id);
       trx.operations.push_back(uop);
       PUSH_TX( db, trx, ~0 );
       trx.operations.clear();
@@ -986,12 +986,12 @@ try {
    // blacklist bob
    {
       graphene::chain::account_whitelist_operation op;
-      op.authorizing_account = nathan_id;
+      op.authorizing_account = maxirmx_id;
       op.account_to_list = bob_id;
       op.new_listing = graphene::chain::account_whitelist_operation::account_listing::black_listed;
       op.fee = db.current_fee_schedule().calculate_fee( op );
       trx.operations.push_back( op );
-      sign( trx, nathan_private_key );
+      sign( trx, maxirmx_private_key );
       PUSH_TX( db, trx, ~0 );
       trx.clear();
       generate_block();
@@ -1024,12 +1024,12 @@ try {
    // unblacklist Bob
    {
       graphene::chain::account_whitelist_operation op;
-      op.authorizing_account = nathan_id;
+      op.authorizing_account = maxirmx_id;
       op.account_to_list = bob_id;
       op.new_listing = graphene::chain::account_whitelist_operation::account_listing::no_listing;
       op.fee = db.current_fee_schedule().calculate_fee( op );
       trx.operations.push_back( op );
-      sign( trx, nathan_private_key );
+      sign( trx, maxirmx_private_key );
       PUSH_TX( db, trx, ~0 );
       trx.clear();
       generate_block();
@@ -1060,12 +1060,12 @@ try {
    // blacklist bob
    {
       graphene::chain::account_whitelist_operation op;
-      op.authorizing_account = nathan_id;
+      op.authorizing_account = maxirmx_id;
       op.account_to_list = bob_id;
       op.new_listing = graphene::chain::account_whitelist_operation::account_listing::black_listed;
       op.fee = db.current_fee_schedule().calculate_fee( op );
       trx.operations.push_back( op );
-      sign( trx, nathan_private_key );
+      sign( trx, maxirmx_private_key );
       PUSH_TX( db, trx, ~0 );
       trx.clear();
       generate_block();

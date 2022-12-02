@@ -41,3 +41,10 @@ object_database/*
 
 *.pyc
 *.pyo
+
+build/
+data/
+.vscode/
+
+another.key
+*.json.1

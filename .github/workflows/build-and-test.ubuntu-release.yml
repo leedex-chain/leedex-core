@@ -1,14 +1,16 @@
 name: Ubuntu Release
+
 on: [ push, pull_request ]
 env:
   CCACHE_COMPRESS: exists means true
   CCACHE_SLOPPINESS: include_file_ctime,include_file_mtime,time_macros
 jobs:
   test-release:
+    timeout-minutes: 480
     name: Build and test in Release mode
     strategy:
       matrix:
-        os: [ ubuntu-18.04, ubuntu-20.04 ]
+        os: [ ubuntu-20.04 ]
     runs-on: ${{ matrix.os }}
     services:
       elasticsearch:
@@ -45,8 +47,11 @@ jobs:
         submodules: recursive
     - name: Configure
       run: |
-        mkdir -p _build
-        pushd _build
+        sudo dd if=/dev/zero of=/swapfile bs=1M count=2048
+        sudo chmod 600 /swapfile
+        sudo mkswap /swapfile
+        sudo swapon /swapfile
+        mkdir -p build
         export -n BOOST_ROOT BOOST_INCLUDEDIR BOOST_LIBRARYDIR
         cmake -D CMAKE_BUILD_TYPE=Release \
               -D CMAKE_CXX_OUTPUT_EXTENSION_REPLACE=ON \
@@ -54,8 +59,7 @@ jobs:
               -D CMAKE_C_COMPILER_LAUNCHER=ccache \
               -D CMAKE_CXX_COMPILER=g++ \
               -D CMAKE_CXX_COMPILER_LAUNCHER=ccache \
-              ..
-        popd
+              -Bbuild .
     - name: Load Cache
       uses: actions/cache@v3
       with:
@@ -68,48 +72,45 @@ jobs:
       run: |
         export CCACHE_DIR="$GITHUB_WORKSPACE/ccache"
         mkdir -p "$CCACHE_DIR"
-        make -j 1 -C _build
-        df -h
+        make -j 1 -C build
     - name: Unit-Tests
       run: |
-        _build/tests/app_test -l test_suite
+        build/tests/app_test -l test_suite
         curl -XPUT -H "Content-Type: application/json" http://localhost:9200/_cluster/settings \
           -d '{ "transient": { "cluster.routing.allocation.disk.threshold_enabled": false } }'
-        echo
-        _build/tests/es_test -l test_suite
-        libraries/fc/tests/run-parallel-tests.sh _build/tests/chain_test -l test_suite
-        _build/tests/cli_test -l test_suite
-        df -h
+        build/tests/es_test -l test_suite
+        libraries/fc/tests/run-parallel-tests.sh build/tests/chain_test -l test_suite
+        build/tests/cli_test -l test_suite
     - name: Quick test for program arguments
       run: |
-        _build/programs/witness_node/witness_node --version
-        _build/programs/witness_node/witness_node --help
-        if _build/programs/witness_node/witness_node --bad-arg ; then \
+        build/programs/witness_node/witness_node --version
+        build/programs/witness_node/witness_node --help
+        if build/programs/witness_node/witness_node --bad-arg ; then \
           echo "Fail: did not get expected error."; false; \
         else \
           echo "Pass: got expected error."; \
         fi
-        if _build/programs/witness_node/witness_node --plugins "account_history elasticsearch" ; then \
+        if build/programs/witness_node/witness_node --plugins "account_history elasticsearch" ; then \
           echo "Fail: did not get expected error."; false; \
         else \
           echo "Pass: got expected error."; \
         fi
-        if _build/programs/witness_node/witness_node --rpc-endpoint --plugins "witness"; then \
+        if build/programs/witness_node/witness_node --rpc-endpoint --plugins "witness"; then \
           echo "Fail: did not get expected error."; false; \
         else \
           echo "Pass: got expected error."; \
         fi
-        _build/programs/cli_wallet/cli_wallet --version
-        _build/programs/cli_wallet/cli_wallet --help
-        _build/programs/cli_wallet/cli_wallet --suggest-brain-key
-        if _build/programs/cli_wallet/cli_wallet --bad-arg ; then \
+        build/programs/cli_wallet/cli_wallet --version
+        build/programs/cli_wallet/cli_wallet --help
+        build/programs/cli_wallet/cli_wallet --suggest-brain-key
+        if build/programs/cli_wallet/cli_wallet --bad-arg ; then \
           echo "Fail: did not get expected error."; false; \
         else \
           echo "Pass: got expected error."; \
         fi
-    - name: Node-Test
-      run: |
-        df -h
-        pushd _build
-        ../programs/build_helpers/run-node-test
-        df -h
+#    - name: Node-Test
+#      run: |
+#        df -h
+#        pushd build
+#        ../programs/build_helpers/run-node-test
+#        df -h
