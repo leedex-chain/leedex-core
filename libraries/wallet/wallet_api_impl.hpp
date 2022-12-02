@@ -31,7 +31,7 @@
 #include <graphene/wallet/wallet_structs.hpp>
 #include <graphene/wallet/reflect_util.hpp>
 
-namespace graphene { namespace wallet { 
+namespace graphene { namespace wallet {
 
 class wallet_api;
 
@@ -41,10 +41,10 @@ using namespace graphene::protocol;
 using namespace graphene::chain;
 using namespace graphene::app;
 
-static const string ENC_HEADER( "-----BEGIN BITSHARES SIGNED MESSAGE-----\n" );
+static const string ENC_HEADER( "-----BEGIN LEEDEX SIGNED MESSAGE-----\n" );
 static const string ENC_META(   "-----BEGIN META-----\n" );
 static const string ENC_SIG(    "-----BEGIN SIGNATURE-----\n" );
-static const string ENC_FOOTER( "-----END BITSHARES SIGNED MESSAGE-----" );
+static const string ENC_FOOTER( "-----END LEEDEX SIGNED MESSAGE-----" );
 
 template<class T>
 fc::optional<T> maybe_id( const string& name_or_id )
@@ -115,7 +115,7 @@ public:
    /**
     * @brief make a copy of the wallet file
     * Note: this will not overwrite. It simply adds a version suffix.
-    * 
+    *
     * @param destination_filename the filename to save it to
     */
    bool copy_wallet_file( string destination_filename );
@@ -158,7 +158,7 @@ public:
    account_id_type get_account_id(string account_name_or_id) const;
 
    std::string asset_id_to_string(asset_id_type id) const;
-   
+
    optional<extended_asset_object> find_asset(asset_id_type id)const;
 
    optional<extended_asset_object> find_asset(string asset_symbol_or_id)const;
@@ -237,7 +237,7 @@ public:
    signed_transaction register_account(string name, public_key_type owner, public_key_type active,
          string  registrar_account, string  referrer_account, uint32_t referrer_percent,
          bool broadcast = false);
-   
+
    signed_transaction upgrade_account(string name, bool broadcast);
 
    signed_transaction create_account_with_private_key(fc::ecc::private_key owner_privkey,

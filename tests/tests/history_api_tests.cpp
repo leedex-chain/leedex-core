@@ -687,7 +687,7 @@ BOOST_AUTO_TEST_CASE(get_account_history_by_time) {
       histories = hist_api.get_account_history_by_time("dan", {}, time1);
       BOOST_CHECK_EQUAL(histories.size(), 0u);
 
-      histories = hist_api.get_account_history_by_time("nathan", 2);
+      histories = hist_api.get_account_history_by_time("maxirmx", 2);
       BOOST_CHECK_EQUAL(histories.size(), 0u);
 
    }

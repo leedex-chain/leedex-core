@@ -3,6 +3,11 @@ on: [ push, pull_request ]
 env:
   CCACHE_COMPRESS: exists means true
   CCACHE_SLOPPINESS: include_file_ctime,include_file_mtime,time_macros
+
+concurrency:
+  group: '${{ github.workflow }}-${{ github.job }}-${{ github.head_ref || github.ref_name }}'
+  cancel-in-progress: true
+
 jobs:
   build-osx:
     name: Build and test in macOS
@@ -77,8 +82,9 @@ jobs:
         else \
           echo "Pass: got expected error."; \
         fi
-    - name: Node-Test
-      run: |
-        df -h
-        pushd _build
-        ../programs/build_helpers/run-node-test
+
+#    - name: Node-Test
+#      run: |
+#        df -h
+#        pushd _build
+#        ../programs/build_helpers/run-node-test

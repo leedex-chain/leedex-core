@@ -22,7 +22,7 @@ except ImportError:
 
 @asyncio.coroutine
 def mainloop():
-    ws = yield from websockets.connect('ws://localhost:8090/')
+    ws = yield from websockets.connect('ws://localhost:8980/')
     entropy = struct.unpack("<Q", os.urandom(8))[0]
     rand = random.Random(entropy)
     my_account_id = rand.randrange(0, 90000)

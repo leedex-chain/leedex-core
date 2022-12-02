@@ -25,12 +25,12 @@
 #include <graphene/protocol/base.hpp>
 #include <graphene/protocol/asset.hpp>
 
-namespace graphene { namespace protocol { 
+namespace graphene { namespace protocol {
    /**
-     * @defgroup proposed_transactions  The BitShares Transaction Proposal Protocol
+     * @defgroup proposed_transactions  The LEEDEX Transaction Proposal Protocol
      * @ingroup operations
      *
-     * BitShares allows users to propose a transaction which requires approval of multiple accounts in order to execute.
+     * LEEDEX allows users to propose a transaction which requires approval of multiple accounts in order to execute.
      * The user proposes a transaction using proposal_create_operation, then signatory accounts use
      * proposal_update_operations to add or remove their approvals from this operation. When a sufficient number of
      * approvals have been granted, the operations in the proposal are used to create a virtual transaction which is
@@ -69,8 +69,8 @@ namespace graphene { namespace protocol {
     */
    struct proposal_create_operation : public base_operation
    {
-       struct fee_parameters_type { 
-          uint64_t fee            = 20 * GRAPHENE_BLOCKCHAIN_PRECISION; 
+       struct fee_parameters_type {
+          uint64_t fee            = 20 * GRAPHENE_BLOCKCHAIN_PRECISION;
           uint32_t price_per_kbyte = 10;
        };
 
@@ -118,8 +118,8 @@ namespace graphene { namespace protocol {
     */
    struct proposal_update_operation : public base_operation
    {
-      struct fee_parameters_type { 
-         uint64_t fee            = 20 * GRAPHENE_BLOCKCHAIN_PRECISION; 
+      struct fee_parameters_type {
+         uint64_t fee            = 20 * GRAPHENE_BLOCKCHAIN_PRECISION;
          uint32_t price_per_kbyte = 10;
       };
 
@@ -167,7 +167,7 @@ namespace graphene { namespace protocol {
       void       validate()const;
    };
    ///@}
-   
+
 }} // graphene::protocol
 
 FC_REFLECT( graphene::protocol::proposal_create_operation::fee_parameters_type, (fee)(price_per_kbyte) )

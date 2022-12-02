@@ -175,11 +175,11 @@ BOOST_AUTO_TEST_CASE( api_limit_get_call_orders ){
    try{
    graphene::app::database_api db_api( db, &( app.get_options() ));
    //account_id_type() do 3 ops
-   auto nathan_private_key = generate_private_key("nathan");
-   account_id_type nathan_id = create_account("nathan", nathan_private_key.get_public_key()).get_id();
-   transfer(account_id_type(), nathan_id, asset(100));
+   auto maxirmx_private_key = generate_private_key("maxirmx");
+   account_id_type maxirmx_id = create_account("maxirmx", maxirmx_private_key.get_public_key()).get_id();
+   transfer(account_id_type(), maxirmx_id, asset(100));
    asset_id_type bitusd_id = create_bitasset(
-         "USDBIT", nathan_id, 100, disable_force_settle).get_id();
+         "USDBIT", maxirmx_id, 100, disable_force_settle).get_id();
    generate_block();
    fc::usleep(fc::milliseconds(100));
    BOOST_CHECK( bitusd_id(db).is_market_issued() );
@@ -197,11 +197,11 @@ BOOST_AUTO_TEST_CASE( api_limit_get_settle_orders ){
    try{
    graphene::app::database_api db_api( db, &( app.get_options() ));
    //account_id_type() do 3 ops
-   auto nathan_private_key = generate_private_key("nathan");
-   account_id_type nathan_id = create_account("nathan", nathan_private_key.get_public_key()).get_id();
-   transfer(account_id_type(), nathan_id, asset(100));
+   auto maxirmx_private_key = generate_private_key("maxirmx");
+   account_id_type maxirmx_id = create_account("maxirmx", maxirmx_private_key.get_public_key()).get_id();
+   transfer(account_id_type(), maxirmx_id, asset(100));
    asset_id_type bitusd_id = create_bitasset(
-         "USDBIT", nathan_id, 100, disable_force_settle).get_id();
+         "USDBIT", maxirmx_id, 100, disable_force_settle).get_id();
    generate_block();
    fc::usleep(fc::milliseconds(100));
    GRAPHENE_CHECK_THROW(db_api.get_settle_orders(
@@ -217,17 +217,17 @@ BOOST_AUTO_TEST_CASE( api_limit_get_settle_orders ){
 BOOST_AUTO_TEST_CASE( api_limit_get_order_book ){
  try {
    graphene::app::database_api db_api( db, &( app.get_options() ));
-   auto nathan_private_key = generate_private_key("nathan");
+   auto maxirmx_private_key = generate_private_key("maxirmx");
    auto dan_private_key = generate_private_key("dan");
-   account_id_type nathan_id = create_account("nathan", nathan_private_key.get_public_key()).get_id();
+   account_id_type maxirmx_id = create_account("maxirmx", maxirmx_private_key.get_public_key()).get_id();
    account_id_type dan_id = create_account("dan", dan_private_key.get_public_key()).get_id();
-   transfer(account_id_type(), nathan_id, asset(100));
+   transfer(account_id_type(), maxirmx_id, asset(100));
    transfer(account_id_type(), dan_id, asset(100));
-   asset_id_type bitusd_id = create_user_issued_asset( "USDBIT", nathan_id(db), charge_market_fee).get_id();
+   asset_id_type bitusd_id = create_user_issued_asset( "USDBIT", maxirmx_id(db), charge_market_fee).get_id();
    asset_id_type bitdan_id = create_user_issued_asset( "DANBIT", dan_id(db), charge_market_fee).get_id();
-   issue_uia( nathan_id, asset(100, bitusd_id) );
+   issue_uia( maxirmx_id, asset(100, bitusd_id) );
    issue_uia( dan_id, asset(100, bitdan_id) );
-   create_sell_order( nathan_id, asset(100, bitusd_id), asset(10000, bitdan_id) );
+   create_sell_order( maxirmx_id, asset(100, bitusd_id), asset(10000, bitdan_id) );
    create_sell_order( dan_id, asset(100, bitdan_id), asset(10000, bitusd_id) );
    generate_block();
    fc::usleep(fc::milliseconds(100));
@@ -236,7 +236,7 @@ BOOST_AUTO_TEST_CASE( api_limit_get_order_book ){
    graphene::app::order_book result =db_api.get_order_book(std::string(
          static_cast<object_id_type>(bitusd_id)), std::string(static_cast<object_id_type>(bitdan_id)),78);
    BOOST_REQUIRE_EQUAL( result.bids.size(), 1u );
-   BOOST_CHECK( result.bids.front().owner_name == "nathan" );
+   BOOST_CHECK( result.bids.front().owner_name == "maxirmx" );
    BOOST_REQUIRE_EQUAL( result.asks.size(), 1u );
    BOOST_CHECK( result.asks.front().owner_name == "dan" );
  } catch (fc::exception& e) {

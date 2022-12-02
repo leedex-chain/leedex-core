@@ -1,8 +1,19 @@
-BitShares Core
+LEEDEX Core
 ==============
 
-[BitShares Core](https://github.com/bitshares/bitshares-core) is the BitShares blockchain node software and command-line wallet software.
-For UI reference wallet software (browser-based wallet and desktop wallet) visit [BitShares UI](https://github.com/bitshares/bitshares-ui).
+LEEDEX Core is the LEEDEX blockchain node software and command-line wallet software.
+For UI reference wallet software (browser-based wallet) visit [LEEDEX UI](https://github.com/leedex-chain/leedex-ui).
+
+|Branch|Build Status|
+|---|---|
+|`master`|[![macOS](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.mac.yml/badge.svg?branch=master)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.mac.yml) [![Ubuntu Debug](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-debug.yml/badge.svg?branch=master)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-debug.yml) [![Ubuntu Release](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-release.yml/badge.svg?branch=master)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-release.yml) [![Windows MinGW64](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.win.yml/badge.svg?branch=master)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.win.yml) [![Docker](https://github.com/leedex-chain/leedex-core/actions/workflows/build-docker.yml/badge.svg?branch=master)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-docker.yml)|
+|`startup`|[![macOS](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.mac.yml/badge.svg?branch=startup)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.mac.yml) [![Ubuntu Debug](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-debug.yml/badge.svg?branch=startup)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-debug.yml) [![Ubuntu Release](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-release.yml/badge.svg?branch=startup)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-release.yml) [![Windows MinGW64](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.win.yml/badge.svg?branch=startup)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.win.yml) [![Docker](https://github.com/leedex-chain/leedex-core/actions/workflows/build-docker.yml/badge.svg?branch=startup)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-docker.yml)|
+|`master` of `bitshares-fc`|[![](https://github.com/bitshares/bitshares-fc/workflows/macOS/badge.svg?branch=master)](https://github.com/bitshares/bitshares-fc/actions?query=workflow%3A"macOS"+branch%3Amaster) [![](https://github.com/bitshares/bitshares-fc/workflows/Ubuntu%20Debug/badge.svg?branch=master)](https://github.com/bitshares/bitshares-fc/actions?query=workflow%3A"Ubuntu+Debug"+branch%3Amaster) [![](https://github.com/bitshares/bitshares-fc/workflows/Ubuntu%20Release/badge.svg?branch=master)](https://github.com/bitshares/bitshares-fc/actions?query=workflow%3A"Ubuntu+Release"+branch%3Amaster)|
+
+Resources
+==============
+
+LEEDEX Core is a fork of BitShares Core.
 
 Visit [BitShares.org](https://bitshares.org/) to learn about BitShares and join the community at [BitSharesTalk.org](https://bitsharestalk.org/).
 
@@ -10,21 +21,19 @@ Information for developers can be found in the [Wiki](https://github.com/bitshar
 
 Visit [Awesome BitShares](https://github.com/bitshares/awesome-bitshares) to find more resources and links E.G. chat groups, client libraries and extended APIs.
 
-* [Getting Started](#getting-started)
-* [Support](#support)
-* [Using Built-In APIs](#using-built-in-apis)
-* [Accessing restrictable node API sets](#accessing-restrictable-node-api-sets)
-* [FAQ](#faq)
-* [License](#license)
-
-|Branch|Build Status|
-|---|---|
-|`master`|[![](https://github.com/bitshares/bitshares-core/workflows/macOS/badge.svg?branch=master)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A"macOS"+branch%3Amaster) [![](https://github.com/bitshares/bitshares-core/workflows/Ubuntu%20Debug/badge.svg?branch=master)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A"Ubuntu+Debug"+branch%3Amaster) [![](https://github.com/bitshares/bitshares-core/workflows/Ubuntu%20Release/badge.svg?branch=master)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A"Ubuntu+Release"+branch%3Amaster) [![](https://github.com/bitshares/bitshares-core/workflows/Windows%20MinGW64/badge.svg?branch=master)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A"Windows+MinGW64"+branch%3Amaster) [![](https://github.com/bitshares/bitshares-core/workflows/Docker/badge.svg?branch=master)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A%22Docker%22+branch%3Amaster)|
-|`develop`|[![](https://github.com/bitshares/bitshares-core/workflows/macOS/badge.svg?branch=develop)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A"macOS"+branch%3Adevelop) [![](https://github.com/bitshares/bitshares-core/workflows/Ubuntu%20Debug/badge.svg?branch=develop)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A"Ubuntu+Debug"+branch%3Adevelop) [![](https://github.com/bitshares/bitshares-core/workflows/Ubuntu%20Release/badge.svg?branch=develop)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A"Ubuntu+Release"+branch%3Adevelop) [![](https://github.com/bitshares/bitshares-core/workflows/Windows%20MinGW64/badge.svg?branch=develop)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A"Windows+MinGW64"+branch%3Adevelop) [![](https://github.com/bitshares/bitshares-core/workflows/Docker/badge.svg?branch=develop)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A%22Docker%22+branch%3Adevelop)|
-|`hardfork`|[![](https://github.com/bitshares/bitshares-core/workflows/macOS/badge.svg?branch=hardfork)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A"macOS"+branch%3Ahardfork) [![](https://github.com/bitshares/bitshares-core/workflows/Ubuntu%20Debug/badge.svg?branch=hardfork)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A"Ubuntu+Debug"+branch%3Ahardfork) [![](https://github.com/bitshares/bitshares-core/workflows/Ubuntu%20Release/badge.svg?branch=hardfork)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A"Ubuntu+Release"+branch%3Ahardfork) [![](https://github.com/bitshares/bitshares-core/workflows/Windows%20MinGW64/badge.svg?branch=hardfork)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A"Windows+MinGW64"+branch%3Ahardfork) [![](https://github.com/bitshares/bitshares-core/workflows/Docker/badge.svg?branch=hardfork)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A%22Docker%22+branch%3Ahardfork)|
-|`testnet`|[![](https://github.com/bitshares/bitshares-core/workflows/macOS/badge.svg?branch=testnet)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A"macOS"+branch%3Atestnet) [![](https://github.com/bitshares/bitshares-core/workflows/Ubuntu%20Debug/badge.svg?branch=testnet)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A"Ubuntu+Debug"+branch%3Atestnet) [![](https://github.com/bitshares/bitshares-core/workflows/Ubuntu%20Release/badge.svg?branch=testnet)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A"Ubuntu+Release"+branch%3Atestnet) [![](https://github.com/bitshares/bitshares-core/workflows/Windows%20MinGW64/badge.svg?branch=testnet)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A"Windows+MinGW64"+branch%3Atestnet) [![](https://github.com/bitshares/bitshares-core/workflows/Docker/badge.svg?branch=testnet)](https://github.com/bitshares/bitshares-core/actions?query=workflow%3A%22Docker%22+branch%3Atestnet)|
-|`master` of `bitshares-fc`|[![](https://github.com/bitshares/bitshares-fc/workflows/macOS/badge.svg?branch=master)](https://github.com/bitshares/bitshares-fc/actions?query=workflow%3A"macOS"+branch%3Amaster) [![](https://github.com/bitshares/bitshares-fc/workflows/Ubuntu%20Debug/badge.svg?branch=master)](https://github.com/bitshares/bitshares-fc/actions?query=workflow%3A"Ubuntu+Debug"+branch%3Amaster) [![](https://github.com/bitshares/bitshares-fc/workflows/Ubuntu%20Release/badge.svg?branch=master)](https://github.com/bitshares/bitshares-fc/actions?query=workflow%3A"Ubuntu+Release"+branch%3Amaster)|
-
+- [LEEDEX Core](#leedex-core)
+- [Resources](#resources)
+  - [Getting Started](#getting-started)
+    - [Installing Node and Command-Line Wallet Software](#installing-node-and-command-line-wallet-software)
+    - [Running and Stopping Node Software](#running-and-stopping-node-software)
+    - [Using Command-Line Wallet](#using-command-line-wallet)
+  - [Support](#support)
+  - [Using Built-In APIs](#using-built-in-apis)
+    - [Node API](#node-api)
+    - [Wallet API](#wallet-api)
+  - [Accessing restrictable node API sets](#accessing-restrictable-node-api-sets)
+  - [FAQ](#faq)
+  - [License](#license)
 
 Getting Started
 ---------------
@@ -121,11 +130,11 @@ In order to run a full node with all the account histories which usually unneces
 
 To use the command-line wallet or other wallets / clients with the node, the node need to be started with RPC connection enabled, which can be done by starting the node with the `--rpc-endpoint` parameter, E.G.
 
-    ./programs/witness_node/witness_node --rpc-endpoint=127.0.0.1:8090
+    ./programs/witness_node/witness_node --rpc-endpoint=127.0.0.1:8980
 
 or configure it in the config file by editing `witness_node_data_dir/config.ini` as follows:
 
-    rpc-endpoint = 127.0.0.1:8090
+    rpc-endpoint = 127.0.0.1:8980
 
 You can run the program with `--help` parameter to see more info:
 
@@ -229,18 +238,18 @@ When running `witness_node` with RPC connection enabled, initially two API sets 
 Here is an example using `wscat` package from `npm` for websockets:
 
     $ npm install -g wscat
-    $ wscat -c ws://127.0.0.1:8090
+    $ wscat -c ws://127.0.0.1:8980
     > {"id":1, "method":"call", "params":[0,"get_accounts",[["1.2.0"]]]}
     < {"id":1,"result":[{"id":"1.2.0","annotations":[],"membership_expiration_date":"1969-12-31T23:59:59","registrar":"1.2.0","referrer":"1.2.0","lifetime_referrer":"1.2.0","network_fee_percentage":2000,"lifetime_referrer_fee_percentage":8000,"referrer_rewards_percentage":0,"name":"committee-account","owner":{"weight_threshold":1,"account_auths":[],"key_auths":[],"address_auths":[]},"active":{"weight_threshold":6,"account_auths":[["1.2.5",1],["1.2.6",1],["1.2.7",1],["1.2.8",1],["1.2.9",1],["1.2.10",1],["1.2.11",1],["1.2.12",1],["1.2.13",1],["1.2.14",1]],"key_auths":[],"address_auths":[]},"options":{"memo_key":"GPH1111111111111111111111111111111114T1Anm","voting_account":"1.2.0","num_witness":0,"num_committee":0,"votes":[],"extensions":[]},"statistics":"2.7.0","whitelisting_accounts":[],"blacklisting_accounts":[]}]}
 
 We can do the same thing using an HTTP client such as `curl` for APIs which do not require login or other session state:
 
-    $ curl --data '{"jsonrpc": "2.0", "method": "call", "params": [0, "get_accounts", [["1.2.0"]]], "id": 1}' http://127.0.0.1:8090/
+    $ curl --data '{"jsonrpc": "2.0", "method": "call", "params": [0, "get_accounts", [["1.2.0"]]], "id": 1}' http://127.0.0.1:8980/
     {"id":1,"result":[{"id":"1.2.0","annotations":[],"membership_expiration_date":"1969-12-31T23:59:59","registrar":"1.2.0","referrer":"1.2.0","lifetime_referrer":"1.2.0","network_fee_percentage":2000,"lifetime_referrer_fee_percentage":8000,"referrer_rewards_percentage":0,"name":"committee-account","owner":{"weight_threshold":1,"account_auths":[],"key_auths":[],"address_auths":[]},"active":{"weight_threshold":6,"account_auths":[["1.2.5",1],["1.2.6",1],["1.2.7",1],["1.2.8",1],["1.2.9",1],["1.2.10",1],["1.2.11",1],["1.2.12",1],["1.2.13",1],["1.2.14",1]],"key_auths":[],"address_auths":[]},"options":{"memo_key":"GPH1111111111111111111111111111111114T1Anm","voting_account":"1.2.0","num_witness":0,"num_committee":0,"votes":[],"extensions":[]},"statistics":"2.7.0","whitelisting_accounts":[],"blacklisting_accounts":[]}]}
 
 When using an HTTP client, the API set ID can be replaced by the API set name, E.G.
 
-    $ curl --data '{"jsonrpc": "2.0", "method": "call", "params": ["database", "get_accounts", [["1.2.0"]]], "id": 1}' http://127.0.0.1:8090/
+    $ curl --data '{"jsonrpc": "2.0", "method": "call", "params": ["database", "get_accounts", [["1.2.0"]]], "id": 1}' http://127.0.0.1:8980/
 
 The definition of all node APIs is available in the source code files including
 [database_api.hpp](https://github.com/bitshares/bitshares-core/blob/master/libraries/app/include/graphene/app/database_api.hpp)
@@ -317,7 +326,7 @@ Note, the call to `network_node` is necessary to obtain the correct API set ID f
 
 The restricted API sets are accessible via HTTP too using *basic access authentication*. E.G.
 
-    $ curl --data '{"jsonrpc": "2.0", "method": "call", "params": ["network_node", "add_node", ["127.0.0.1:9090"]], "id": 1}' http://bytemaster:supersecret@127.0.0.1:8090/
+    $ curl --data '{"jsonrpc": "2.0", "method": "call", "params": ["network_node", "add_node", ["127.0.0.1:9090"]], "id": 1}' http://bytemaster:supersecret@127.0.0.1:8980/
 
 Our `doxygen` documentation contains the most up-to-date information
 about APIs for the [node](https://doxygen.bitshares.org/namespacegraphene_1_1app.html) and the
@@ -397,5 +406,5 @@ FAQ
 License
 -------
 
-BitShares Core is under the MIT license. See [LICENSE](https://github.com/bitshares/bitshares-core/blob/master/LICENSE.txt)
+LEEDEX Core is under the MIT license. See [LICENSE](https://github.com/leedex-chain/leedex-core/blob/master/LICENSE.txt)
 for more information.

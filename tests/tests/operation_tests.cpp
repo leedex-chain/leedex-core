@@ -1752,7 +1752,7 @@ BOOST_AUTO_TEST_CASE( margin_call_limit_test )
 
 BOOST_AUTO_TEST_CASE( prediction_market )
 { try {
-      ACTORS((judge)(dan)(nathan));
+      ACTORS((judge)(dan)(maxirmx));
 
       const auto& pmark = create_prediction_market("PMARK", judge_id);
       const auto pmark_dd_id = pmark.dynamic_asset_data_id;
@@ -1761,7 +1761,7 @@ BOOST_AUTO_TEST_CASE( prediction_market )
       int64_t init_balance(1000000);
       transfer(committee_account, judge_id, asset(init_balance));
       transfer(committee_account, dan_id, asset(init_balance));
-      transfer(committee_account, nathan_id, asset(init_balance));
+      transfer(committee_account, maxirmx_id, asset(init_balance));
 
       update_feed_producers( pmark, { judge_id });
       price_feed feed;
@@ -1810,7 +1810,7 @@ BOOST_AUTO_TEST_CASE( prediction_market )
 
 BOOST_AUTO_TEST_CASE( prediction_market_resolves_to_0 )
 { try {
-      ACTORS((judge)(dan)(nathan));
+      ACTORS((judge)(dan)(maxirmx));
 
       const auto& pmark = create_prediction_market("PMARK", judge_id);
       const auto pmark_dd_id = pmark.dynamic_asset_data_id;
@@ -1819,7 +1819,7 @@ BOOST_AUTO_TEST_CASE( prediction_market_resolves_to_0 )
       int64_t init_balance(1000000);
       transfer(committee_account, judge_id, asset(init_balance));
       transfer(committee_account, dan_id, asset(init_balance));
-      transfer(committee_account, nathan_id, asset(init_balance));
+      transfer(committee_account, maxirmx_id, asset(init_balance));
 
       update_feed_producers( pmark, { judge_id });
       price_feed feed;
@@ -1850,9 +1850,9 @@ BOOST_AUTO_TEST_CASE( prediction_market_resolves_to_0 )
  * Prediction markets should not suffer a black swan (Issue #460)
  */
 BOOST_AUTO_TEST_CASE( prediction_market_black_swan )
-{ 
+{
    try {
-      ACTORS((judge)(dan)(nathan));
+      ACTORS((judge)(dan)(maxirmx));
 
       // progress to recent hardfork
       generate_blocks( HARDFORK_CORE_1270_TIME );
@@ -1959,28 +1959,28 @@ BOOST_AUTO_TEST_CASE( create_account_test )
       trx.validate();
       PUSH_TX( db, trx, ~0 );
 
-      const account_object& nathan_account = *db.get_index_type<account_index>().indices().get<by_name>().find("nathan");
-      BOOST_CHECK(nathan_account.id.space() == protocol_ids);
-      BOOST_CHECK(nathan_account.id.type() == account_object_type);
-      BOOST_CHECK(nathan_account.name == "nathan");
+      const account_object& maxirmx_account = *db.get_index_type<account_index>().indices().get<by_name>().find("maxirmx");
+      BOOST_CHECK(maxirmx_account.id.space() == protocol_ids);
+      BOOST_CHECK(maxirmx_account.id.type() == account_object_type);
+      BOOST_CHECK(maxirmx_account.name == "maxirmx");
 
-      BOOST_REQUIRE(nathan_account.owner.num_auths() == 1);
-      BOOST_CHECK(nathan_account.owner.key_auths.at(committee_key) == 123);
-      BOOST_REQUIRE(nathan_account.active.num_auths() == 1);
-      BOOST_CHECK(nathan_account.active.key_auths.at(committee_key) == 321);
-      BOOST_CHECK(nathan_account.options.voting_account == GRAPHENE_PROXY_TO_SELF_ACCOUNT);
-      BOOST_CHECK(nathan_account.options.memo_key == committee_key);
+      BOOST_REQUIRE(maxirmx_account.owner.num_auths() == 1);
+      BOOST_CHECK(maxirmx_account.owner.key_auths.at(committee_key) == 123);
+      BOOST_REQUIRE(maxirmx_account.active.num_auths() == 1);
+      BOOST_CHECK(maxirmx_account.active.key_auths.at(committee_key) == 321);
+      BOOST_CHECK(maxirmx_account.options.voting_account == GRAPHENE_PROXY_TO_SELF_ACCOUNT);
+      BOOST_CHECK(maxirmx_account.options.memo_key == committee_key);
 
-      const account_statistics_object& statistics = nathan_account.statistics(db);
+      const account_statistics_object& statistics = maxirmx_account.statistics(db);
       BOOST_CHECK(statistics.id.space() == implementation_ids);
       BOOST_CHECK(statistics.id.type() == impl_account_statistics_object_type);
 
-      account_id_type nathan_id = nathan_account.get_id();
+      account_id_type maxirmx_id = maxirmx_account.get_id();
 
       generate_block();
 
-      BOOST_CHECK_EQUAL( nathan_id(db).creation_block_num, db.head_block_num() );
-      BOOST_CHECK( nathan_id(db).creation_time == db.head_block_time() );
+      BOOST_CHECK_EQUAL( maxirmx_id(db).creation_block_num, db.head_block_num() );
+      BOOST_CHECK( maxirmx_id(db).creation_time == db.head_block_time() );
 
    } catch (fc::exception& e) {
       edump((e.to_detail_string()));
@@ -1991,47 +1991,47 @@ BOOST_AUTO_TEST_CASE( create_account_test )
 BOOST_AUTO_TEST_CASE( update_account )
 {
    try {
-      const account_object& nathan = create_account("nathan", init_account_pub_key);
-      const fc::ecc::private_key nathan_new_key = fc::ecc::private_key::generate();
-      const public_key_type key_id = nathan_new_key.get_public_key();
+      const account_object& maxirmx = create_account("maxirmx", init_account_pub_key);
+      const fc::ecc::private_key maxirmx_new_key = fc::ecc::private_key::generate();
+      const public_key_type key_id = maxirmx_new_key.get_public_key();
       const auto& active_committee_members = db.get_global_properties().active_committee_members;
 
-      transfer(account_id_type()(db), nathan, asset(1000000000));
+      transfer(account_id_type()(db), maxirmx, asset(1000000000));
 
       trx.operations.clear();
       account_update_operation op;
-      op.account = nathan.id;
+      op.account = maxirmx.id;
       op.owner = authority(2, key_id, 1, init_account_pub_key, 1);
       op.active = authority(2, key_id, 1, init_account_pub_key, 1);
-      op.new_options = nathan.options;
+      op.new_options = maxirmx.options;
       op.new_options->votes = flat_set<vote_id_type>({active_committee_members[0](db).vote_id, active_committee_members[5](db).vote_id});
       op.new_options->num_committee = 2;
       trx.operations.push_back(op);
       BOOST_TEST_MESSAGE( "Updating account" );
       PUSH_TX( db, trx, ~0 );
 
-      BOOST_CHECK(nathan.options.memo_key == init_account_pub_key);
-      BOOST_CHECK(nathan.active.weight_threshold == 2);
-      BOOST_CHECK(nathan.active.num_auths() == 2);
-      BOOST_CHECK(nathan.active.key_auths.at(key_id) == 1);
-      BOOST_CHECK(nathan.active.key_auths.at(init_account_pub_key) == 1);
-      BOOST_CHECK(nathan.owner.weight_threshold == 2);
-      BOOST_CHECK(nathan.owner.num_auths() == 2);
-      BOOST_CHECK(nathan.owner.key_auths.at(key_id) == 1);
-      BOOST_CHECK(nathan.owner.key_auths.at(init_account_pub_key) == 1);
-      BOOST_CHECK(nathan.options.votes.size() == 2);
+      BOOST_CHECK(maxirmx.options.memo_key == init_account_pub_key);
+      BOOST_CHECK(maxirmx.active.weight_threshold == 2);
+      BOOST_CHECK(maxirmx.active.num_auths() == 2);
+      BOOST_CHECK(maxirmx.active.key_auths.at(key_id) == 1);
+      BOOST_CHECK(maxirmx.active.key_auths.at(init_account_pub_key) == 1);
+      BOOST_CHECK(maxirmx.owner.weight_threshold == 2);
+      BOOST_CHECK(maxirmx.owner.num_auths() == 2);
+      BOOST_CHECK(maxirmx.owner.key_auths.at(key_id) == 1);
+      BOOST_CHECK(maxirmx.owner.key_auths.at(init_account_pub_key) == 1);
+      BOOST_CHECK(maxirmx.options.votes.size() == 2);
 
       enable_fees();
       {
          account_upgrade_operation op;
-         op.account_to_upgrade = nathan.id;
+         op.account_to_upgrade = maxirmx.id;
          op.upgrade_to_lifetime_member = true;
          op.fee = db.get_global_properties().parameters.get_current_fees().calculate_fee(op);
          trx.operations = {op};
          PUSH_TX( db, trx, ~0 );
       }
 
-      BOOST_CHECK( nathan.is_lifetime_member() );
+      BOOST_CHECK( maxirmx.is_lifetime_member() );
    } catch (fc::exception& e) {
       edump((e.to_detail_string()));
       throw;
@@ -2046,10 +2046,10 @@ BOOST_AUTO_TEST_CASE( transfer_core_asset )
       account_id_type committee_account;
       asset committee_balance = db.get_balance(account_id_type(), asset_id_type());
 
-      const account_object& nathan_account = *db.get_index_type<account_index>().indices().get<by_name>().find("nathan");
+      const account_object& maxirmx_account = *db.get_index_type<account_index>().indices().get<by_name>().find("maxirmx");
       transfer_operation top;
       top.from = committee_account;
-      top.to = nathan_account.id;
+      top.to = maxirmx_account.id;
       top.amount = asset( 10000);
       trx.operations.push_back(top);
       for( auto& op : trx.operations ) db.current_fee_schedule().set_fee(op);
@@ -2062,10 +2062,10 @@ BOOST_AUTO_TEST_CASE( transfer_core_asset )
                         (committee_balance.amount - 10000 - fee.amount).value);
       committee_balance = db.get_balance(account_id_type(), asset_id_type());
 
-      BOOST_CHECK_EQUAL(get_balance(nathan_account, asset_id_type()(db)), 10000);
+      BOOST_CHECK_EQUAL(get_balance(maxirmx_account, asset_id_type()(db)), 10000);
 
       trx = signed_transaction();
-      top.from = nathan_account.id;
+      top.from = maxirmx_account.id;
       top.to = committee_account;
       top.amount = asset(2000);
       trx.operations.push_back(top);
@@ -2077,7 +2077,7 @@ BOOST_AUTO_TEST_CASE( transfer_core_asset )
       trx.validate();
       PUSH_TX( db, trx, ~0 );
 
-      BOOST_CHECK_EQUAL(get_balance(nathan_account, asset_id_type()(db)), 8000 - fee.amount.value);
+      BOOST_CHECK_EQUAL(get_balance(maxirmx_account, asset_id_type()(db)), 8000 - fee.amount.value);
       BOOST_CHECK_EQUAL(get_balance(account_id_type()(db), asset_id_type()(db)), committee_balance.amount.value + 2000);
 
    } catch (fc::exception& e) {
@@ -2160,14 +2160,14 @@ BOOST_AUTO_TEST_CASE( update_mia )
       }
 
       trx.operations.clear();
-      auto nathan = create_account("nathan");
+      auto maxirmx = create_account("maxirmx");
       op.issuer = account_id_type();
-      op.new_issuer = nathan.id;
+      op.new_issuer = maxirmx.id;
       trx.operations.emplace_back(op);
       PUSH_TX( db, trx, ~0 );
-      BOOST_CHECK(bit_usd.issuer == nathan.id);
+      BOOST_CHECK(bit_usd.issuer == maxirmx.id);
 
-      op.issuer = nathan.id;
+      op.issuer = maxirmx.id;
       op.new_issuer = account_id_type();
       trx.operations.back() = op;
       PUSH_TX( db, trx, ~0 );
@@ -2242,7 +2242,7 @@ BOOST_AUTO_TEST_CASE( update_uia )
    try {
       INVOKE(create_uia);
       const auto& test = get_asset(UIA_TEST_SYMBOL);
-      const auto& nathan = create_account("nathan");
+      const auto& maxirmx = create_account("maxirmx");
 
       asset_update_operation op;
       op.issuer = test.issuer;
@@ -2266,12 +2266,12 @@ BOOST_AUTO_TEST_CASE( update_uia )
       PUSH_TX( db, trx, ~0 );
       REQUIRE_THROW_WITH_VALUE(op, new_options.core_exchange_rate, price());
       op.new_options.core_exchange_rate = test.options.core_exchange_rate;
-      op.new_issuer = nathan.id;
+      op.new_issuer = maxirmx.id;
       trx.operations.back() = op;
       PUSH_TX( db, trx, ~0 );
 
       BOOST_TEST_MESSAGE( "Test setting flags" );
-      op.issuer = nathan.id;
+      op.issuer = maxirmx.id;
       op.new_issuer.reset();
       op.new_options.flags = transfer_restricted | white_list;
       trx.operations.back() = op;
@@ -2296,10 +2296,10 @@ BOOST_AUTO_TEST_CASE( update_uia )
       asset_issue_operation issue_op;
       issue_op.issuer = op.issuer;
       issue_op.asset_to_issue =  asset(5000000,op.asset_to_update);
-      issue_op.issue_to_account = nathan.get_id();
+      issue_op.issue_to_account = maxirmx.get_id();
       trx.operations.push_back(issue_op);
       PUSH_TX(db, trx, ~0);
-      
+
       BOOST_TEST_MESSAGE( "Make sure white_list can't be re-enabled (after tokens issued)" );
       op.new_options.issuer_permissions = test.options.issuer_permissions;
       op.new_options.flags = test.options.flags;
@@ -2455,12 +2455,12 @@ BOOST_AUTO_TEST_CASE( issue_uia )
       INVOKE(create_account_test);
 
       const asset_object& test_asset = *db.get_index_type<asset_index>().indices().get<by_symbol>().find(UIA_TEST_SYMBOL);
-      const account_object& nathan_account = *db.get_index_type<account_index>().indices().get<by_name>().find("nathan");
+      const account_object& maxirmx_account = *db.get_index_type<account_index>().indices().get<by_name>().find("maxirmx");
 
       asset_issue_operation op;
       op.issuer = test_asset.issuer;
       op.asset_to_issue =  test_asset.amount(5000000);
-      op.issue_to_account = nathan_account.id;
+      op.issue_to_account = maxirmx_account.id;
       trx.operations.push_back(op);
 
       REQUIRE_THROW_WITH_VALUE(op, asset_to_issue, asset(200));
@@ -2471,14 +2471,14 @@ BOOST_AUTO_TEST_CASE( issue_uia )
       PUSH_TX( db, trx, ~0 );
 
       const asset_dynamic_data_object& test_dynamic_data = test_asset.dynamic_asset_data_id(db);
-      BOOST_CHECK_EQUAL(get_balance(nathan_account, test_asset), 5000000);
+      BOOST_CHECK_EQUAL(get_balance(maxirmx_account, test_asset), 5000000);
       BOOST_CHECK(test_dynamic_data.current_supply == 5000000);
       BOOST_CHECK(test_dynamic_data.accumulated_fees == 0);
       BOOST_CHECK(test_dynamic_data.fee_pool == 0);
 
       PUSH_TX( db, trx, ~0 );
 
-      BOOST_CHECK_EQUAL(get_balance(nathan_account, test_asset), 10000000);
+      BOOST_CHECK_EQUAL(get_balance(maxirmx_account, test_asset), 10000000);
       BOOST_CHECK(test_dynamic_data.current_supply == 10000000);
       BOOST_CHECK(test_dynamic_data.accumulated_fees == 0);
       BOOST_CHECK(test_dynamic_data.fee_pool == 0);
@@ -2494,22 +2494,22 @@ BOOST_AUTO_TEST_CASE( transfer_uia )
       INVOKE(issue_uia);
 
       const asset_object& uia = *db.get_index_type<asset_index>().indices().get<by_symbol>().find(UIA_TEST_SYMBOL);
-      const account_object& nathan = *db.get_index_type<account_index>().indices().get<by_name>().find("nathan");
+      const account_object& maxirmx = *db.get_index_type<account_index>().indices().get<by_name>().find("maxirmx");
       const account_object& committee = account_id_type()(db);
 
-      BOOST_CHECK_EQUAL(get_balance(nathan, uia), 10000000);
+      BOOST_CHECK_EQUAL(get_balance(maxirmx, uia), 10000000);
       transfer_operation top;
-      top.from = nathan.id;
+      top.from = maxirmx.id;
       top.to = committee.id;
       top.amount = uia.amount(5000);
       trx.operations.push_back(top);
-      BOOST_TEST_MESSAGE( "Transfering 5000 TEST from nathan to committee" );
+      BOOST_TEST_MESSAGE( "Transfering 5000 TEST from maxirmx to committee" );
       PUSH_TX( db, trx, ~0 );
-      BOOST_CHECK_EQUAL(get_balance(nathan, uia), 10000000 - 5000);
+      BOOST_CHECK_EQUAL(get_balance(maxirmx, uia), 10000000 - 5000);
       BOOST_CHECK_EQUAL(get_balance(committee, uia), 5000);
 
       PUSH_TX( db, trx, ~0 );
-      BOOST_CHECK_EQUAL(get_balance(nathan, uia), 10000000 - 10000);
+      BOOST_CHECK_EQUAL(get_balance(maxirmx, uia), 10000000 - 10000);
       BOOST_CHECK_EQUAL(get_balance(committee, uia), 10000);
    } catch(fc::exception& e) {
       edump((e.to_detail_string()));
@@ -2523,12 +2523,12 @@ BOOST_AUTO_TEST_CASE( create_buy_uia_multiple_match_new )
    INVOKE( issue_uia );
    const asset_object&   core_asset     = get_asset( UIA_TEST_SYMBOL );
    const asset_object&   test_asset     = get_asset( GRAPHENE_SYMBOL );
-   const account_object& nathan_account = get_account( "nathan" );
+   const account_object& maxirmx_account = get_account( "maxirmx" );
    const account_object& buyer_account  = create_account( "buyer" );
    const account_object& seller_account = create_account( "seller" );
 
    transfer( committee_account(db), buyer_account, test_asset.amount( 10000 ) );
-   transfer( nathan_account, seller_account, core_asset.amount(10000) );
+   transfer( maxirmx_account, seller_account, core_asset.amount(10000) );
 
    BOOST_CHECK_EQUAL( get_balance( buyer_account, test_asset ), 10000 );
 
@@ -2563,12 +2563,12 @@ BOOST_AUTO_TEST_CASE( create_buy_exact_match_uia )
    INVOKE( issue_uia );
    const asset_object&   test_asset     = get_asset( UIA_TEST_SYMBOL );
    const asset_object&   core_asset     = get_asset( GRAPHENE_SYMBOL );
-   const account_object& nathan_account = get_account( "nathan" );
+   const account_object& maxirmx_account = get_account( "maxirmx" );
    const account_object& buyer_account  = create_account( "buyer" );
    const account_object& seller_account = create_account( "seller" );
 
    transfer( committee_account(db), seller_account, asset( 10000 ) );
-   transfer( nathan_account, buyer_account, test_asset.amount(10000) );
+   transfer( maxirmx_account, buyer_account, test_asset.amount(10000) );
 
    BOOST_CHECK_EQUAL( get_balance( buyer_account, test_asset ), 10000 );
 
@@ -2604,12 +2604,12 @@ BOOST_AUTO_TEST_CASE( create_buy_uia_multiple_match_new_reverse )
    INVOKE( issue_uia );
    const asset_object&   test_asset     = get_asset( UIA_TEST_SYMBOL );
    const asset_object&   core_asset     = get_asset( GRAPHENE_SYMBOL );
-   const account_object& nathan_account = get_account( "nathan" );
+   const account_object& maxirmx_account = get_account( "maxirmx" );
    const account_object& buyer_account  = create_account( "buyer" );
    const account_object& seller_account = create_account( "seller" );
 
    transfer( committee_account(db), seller_account, asset( 10000 ) );
-   transfer( nathan_account, buyer_account, test_asset.amount(10000),test_asset.amount(0) );
+   transfer( maxirmx_account, buyer_account, test_asset.amount(10000),test_asset.amount(0) );
 
    BOOST_CHECK_EQUAL( get_balance( buyer_account, test_asset ), 10000 );
 
@@ -2644,12 +2644,12 @@ BOOST_AUTO_TEST_CASE( create_buy_uia_multiple_match_new_reverse_fract )
    INVOKE( issue_uia );
    const asset_object&   test_asset     = get_asset( UIA_TEST_SYMBOL );
    const asset_object&   core_asset     = get_asset( GRAPHENE_SYMBOL );
-   const account_object& nathan_account = get_account( "nathan" );
+   const account_object& maxirmx_account = get_account( "maxirmx" );
    const account_object& buyer_account  = create_account( "buyer" );
    const account_object& seller_account = create_account( "seller" );
 
    transfer( committee_account(db), seller_account, asset( 30 ) );
-   transfer( nathan_account, buyer_account, test_asset.amount(10000),test_asset.amount(0) );
+   transfer( maxirmx_account, buyer_account, test_asset.amount(10000),test_asset.amount(0) );
 
    BOOST_CHECK_EQUAL( get_balance( buyer_account, test_asset ), 10000 );
    BOOST_CHECK_EQUAL( get_balance( buyer_account, core_asset ), 0 );
@@ -2692,7 +2692,7 @@ BOOST_AUTO_TEST_CASE( uia_fees )
 
       const asset_object& test_asset = get_asset(UIA_TEST_SYMBOL);
       const asset_dynamic_data_object& asset_dynamic = test_asset.dynamic_asset_data_id(db);
-      const account_object& nathan_account = get_account("nathan");
+      const account_object& maxirmx_account = get_account("maxirmx");
       const account_object& committee_account = account_id_type()(db);
       const share_type prec = asset::scaled_precision( asset_id_type()(db).precision );
 
@@ -2701,19 +2701,19 @@ BOOST_AUTO_TEST_CASE( uia_fees )
 
       transfer_operation op;
       op.fee = test_asset.amount(0);
-      op.from = nathan_account.id;
+      op.from = maxirmx_account.id;
       op.to   = committee_account.id;
       op.amount = test_asset.amount(100);
       op.fee = db.current_fee_schedule().calculate_fee( op, test_asset.options.core_exchange_rate );
       BOOST_CHECK(op.fee.asset_id == test_asset.id);
-      asset old_balance = db.get_balance(nathan_account.get_id(), test_asset.get_id());
+      asset old_balance = db.get_balance(maxirmx_account.get_id(), test_asset.get_id());
       asset fee = op.fee;
       BOOST_CHECK(fee.amount > 0);
       asset core_fee = fee*test_asset.options.core_exchange_rate;
       trx.operations.push_back(std::move(op));
       PUSH_TX( db, trx, ~0 );
 
-      BOOST_CHECK_EQUAL(get_balance(nathan_account, test_asset),
+      BOOST_CHECK_EQUAL(get_balance(maxirmx_account, test_asset),
                         (old_balance - fee - test_asset.amount(100)).amount.value);
       BOOST_CHECK_EQUAL(get_balance(committee_account, test_asset), 100);
       BOOST_CHECK(asset_dynamic.accumulated_fees == fee.amount);
@@ -2721,7 +2721,7 @@ BOOST_AUTO_TEST_CASE( uia_fees )
 
       //Do it again, for good measure.
       PUSH_TX( db, trx, ~0 );
-      BOOST_CHECK_EQUAL(get_balance(nathan_account, test_asset),
+      BOOST_CHECK_EQUAL(get_balance(maxirmx_account, test_asset),
                         (old_balance - fee - fee - test_asset.amount(200)).amount.value);
       BOOST_CHECK_EQUAL(get_balance(committee_account, test_asset), 200);
       BOOST_CHECK(asset_dynamic.accumulated_fees == fee.amount + fee.amount);
@@ -2731,15 +2731,15 @@ BOOST_AUTO_TEST_CASE( uia_fees )
       trx.operations.clear();
       op.amount = asset(20);
 
-      BOOST_CHECK_EQUAL(get_balance(nathan_account, asset_id_type()(db)), 0);
-      transfer(committee_account, nathan_account, asset(20));
-      BOOST_CHECK_EQUAL(get_balance(nathan_account, asset_id_type()(db)), 20);
+      BOOST_CHECK_EQUAL(get_balance(maxirmx_account, asset_id_type()(db)), 0);
+      transfer(committee_account, maxirmx_account, asset(20));
+      BOOST_CHECK_EQUAL(get_balance(maxirmx_account, asset_id_type()(db)), 20);
 
       trx.operations.emplace_back(std::move(op));
       PUSH_TX( db, trx, ~0 );
 
-      BOOST_CHECK_EQUAL(get_balance(nathan_account, asset_id_type()(db)), 0);
-      BOOST_CHECK_EQUAL(get_balance(nathan_account, test_asset),
+      BOOST_CHECK_EQUAL(get_balance(maxirmx_account, asset_id_type()(db)), 0);
+      BOOST_CHECK_EQUAL(get_balance(maxirmx_account, test_asset),
                         (old_balance - fee - fee - fee - test_asset.amount(200)).amount.value);
       BOOST_CHECK_EQUAL(get_balance(committee_account, test_asset), 200);
       BOOST_CHECK(asset_dynamic.accumulated_fees == fee.amount.value * 3);
@@ -2838,12 +2838,12 @@ BOOST_AUTO_TEST_CASE( witness_feeds )
 BOOST_AUTO_TEST_CASE( limit_order_fill_or_kill )
 { try {
    INVOKE(issue_uia);
-   const account_object& nathan = get_account("nathan");
+   const account_object& maxirmx = get_account("maxirmx");
    const asset_object& test = get_asset(UIA_TEST_SYMBOL);
    const asset_object& core = asset_id_type()(db);
 
    limit_order_create_operation op;
-   op.seller = nathan.id;
+   op.seller = maxirmx.id;
    op.amount_to_sell = test.amount(500);
    op.min_to_receive = core.amount(500);
    op.fill_or_kill = true;
@@ -2874,8 +2874,8 @@ BOOST_AUTO_TEST_CASE( witness_pay_test )
    generate_block();
 
    // Make an account and upgrade it to prime, so that witnesses get some pay
-   create_account("nathan", init_account_pub_key);
-   transfer(account_id_type()(db), get_account("nathan"), asset(20000*prec));
+   create_account("maxirmx", init_account_pub_key);
+   transfer(account_id_type()(db), get_account("maxirmx"), asset(20000*prec));
    transfer(account_id_type()(db), get_account("init3"), asset(20*prec));
    generate_block();
 
@@ -2889,7 +2889,7 @@ BOOST_AUTO_TEST_CASE( witness_pay_test )
 
    const auto block_interval = db.get_global_properties().parameters.block_interval;
    const asset_object* core = &asset_id_type()(db);
-   const account_object* nathan = &get_account("nathan");
+   const account_object* maxirmx = &get_account("maxirmx");
    enable_fees();
    BOOST_CHECK_GT(db.current_fee_schedule().get<account_upgrade_operation>().membership_lifetime_fee, 0u);
    // Based on the size of the reserve fund later in the test, the witness budget will be set to this value
@@ -2917,7 +2917,7 @@ BOOST_AUTO_TEST_CASE( witness_pay_test )
    BOOST_CHECK_EQUAL(core->dynamic_asset_data_id(db).accumulated_fees.value, 0);
    BOOST_TEST_MESSAGE( "Upgrading account" );
    account_upgrade_operation uop;
-   uop.account_to_upgrade = nathan->get_id();
+   uop.account_to_upgrade = maxirmx->get_id();
    uop.upgrade_to_lifetime_member = true;
    set_expiration( db, trx );
    trx.operations.push_back(uop);
@@ -2927,10 +2927,10 @@ BOOST_AUTO_TEST_CASE( witness_pay_test )
    PUSH_TX( db, trx );
    auto pay_fee_time = db.head_block_time().sec_since_epoch();
    trx.clear();
-   BOOST_CHECK( get_balance(*nathan, *core) == 20000*prec - account_upgrade_operation::fee_parameters_type().membership_lifetime_fee );;
+   BOOST_CHECK( get_balance(*maxirmx, *core) == 20000*prec - account_upgrade_operation::fee_parameters_type().membership_lifetime_fee );;
 
    generate_block();
-   nathan = &get_account("nathan");
+   maxirmx = &get_account("maxirmx");
    core = &asset_id_type()(db);
    BOOST_CHECK_EQUAL( last_witness_vbo_balance().value, 0 );
 
@@ -3077,7 +3077,7 @@ BOOST_AUTO_TEST_CASE( call_order_update_evaluator_test )
       const auto& core   = asset_id_type()(db);
 
       // attempt to increase current supply beyond max_supply
-      const auto& bitjmj = create_bitasset( "JMJBIT", alice_id, 100, charge_market_fee, 2U, 
+      const auto& bitjmj = create_bitasset( "JMJBIT", alice_id, 100, charge_market_fee, 2U,
             asset_id_type{}, GRAPHENE_MAX_SHARE_SUPPLY / 2 );
       auto bitjmj_id = bitjmj.get_id();
       share_type original_max_supply = bitjmj.options.max_supply;
@@ -3112,7 +3112,7 @@ BOOST_AUTO_TEST_CASE( call_order_update_evaluator_test )
       BOOST_REQUIRE_GT(newbitjmj.options.max_supply.value, original_max_supply.value);
 
       // now try with an asset after the hardfork
-      const auto& bitusd = create_bitasset( "USDBIT", alice_id, 100, charge_market_fee, 2U, 
+      const auto& bitusd = create_bitasset( "USDBIT", alice_id, 100, charge_market_fee, 2U,
             asset_id_type{}, GRAPHENE_MAX_SHARE_SUPPLY / 2 );
 
       {
