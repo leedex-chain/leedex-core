@@ -2,7 +2,7 @@ LEEDEX Core
 ==============
 
 LEEDEX Core is the LEEDEX blockchain node software and command-line wallet software.
-For UI reference wallet software (browser-based wallet and desktop wallet) visit [BitShares UI](https://github.com/bitshares/bitshares-ui).
+For UI reference wallet software (browser-based wallet) visit [LEEDEX UI](https://github.com/leedex-chain/leedex-ui).
 
 |Branch|Build Status|
 |---|---|
