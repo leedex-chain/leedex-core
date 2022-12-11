@@ -7,7 +7,7 @@ For UI reference wallet software (browser-based wallet and desktop wallet) visit
 |Branch|Build Status|
 |---|---|
 |`master`|[![macOS](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.mac.yml/badge.svg?branch=master)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.mac.yml) [![Ubuntu Debug](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-debug.yml/badge.svg?branch=master)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-debug.yml) [![Ubuntu Release](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-release.yml/badge.svg?branch=master)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-release.yml) [![Windows MinGW64](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.win.yml/badge.svg?branch=master)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.win.yml) [![Docker](https://github.com/leedex-chain/leedex-core/actions/workflows/build-docker.yml/badge.svg?branch=master)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-docker.yml)|
-|`startup`|[![macOS](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.mac.yml/badge.svg?branch=startup)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.mac.yml) [![Ubuntu Debug](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-debug.yml/badge.svg?branch=startup)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-debug.yml) [![Ubuntu Release](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-release.yml/badge.svg?branch=startup)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-release.yml) [![Windows MinGW64](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.win.yml/badge.svg?branch=startup)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.win.yml)|
+|`startup`|[![macOS](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.mac.yml/badge.svg?branch=startup)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.mac.yml) [![Ubuntu Debug](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-debug.yml/badge.svg?branch=startup)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-debug.yml) [![Ubuntu Release](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-release.yml/badge.svg?branch=startup)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.ubuntu-release.yml) [![Windows MinGW64](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.win.yml/badge.svg?branch=startup)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-and-test.win.yml) [![Docker](https://github.com/leedex-chain/leedex-core/actions/workflows/build-docker.yml/badge.svg?branch=startup)](https://github.com/leedex-chain/leedex-core/actions/workflows/build-docker.yml)|
 |`master` of `bitshares-fc`|[![](https://github.com/bitshares/bitshares-fc/workflows/macOS/badge.svg?branch=master)](https://github.com/bitshares/bitshares-fc/actions?query=workflow%3A"macOS"+branch%3Amaster) [![](https://github.com/bitshares/bitshares-fc/workflows/Ubuntu%20Debug/badge.svg?branch=master)](https://github.com/bitshares/bitshares-fc/actions?query=workflow%3A"Ubuntu+Debug"+branch%3Amaster) [![](https://github.com/bitshares/bitshares-fc/workflows/Ubuntu%20Release/badge.svg?branch=master)](https://github.com/bitshares/bitshares-fc/actions?query=workflow%3A"Ubuntu+Release"+branch%3Amaster)|
 
 Resources
@@ -21,12 +21,19 @@ Information for developers can be found in the [Wiki](https://github.com/bitshar
 
 Visit [Awesome BitShares](https://github.com/bitshares/awesome-bitshares) to find more resources and links E.G. chat groups, client libraries and extended APIs.
 
-* [Getting Started](#getting-started)
-* [Support](#support)
-* [Using Built-In APIs](#using-built-in-apis)
-* [Accessing restrictable node API sets](#accessing-restrictable-node-api-sets)
-* [FAQ](#faq)
-* [License](#license)
+- [LEEDEX Core](#leedex-core)
+- [Resources](#resources)
+  - [Getting Started](#getting-started)
+    - [Installing Node and Command-Line Wallet Software](#installing-node-and-command-line-wallet-software)
+    - [Running and Stopping Node Software](#running-and-stopping-node-software)
+    - [Using Command-Line Wallet](#using-command-line-wallet)
+  - [Support](#support)
+  - [Using Built-In APIs](#using-built-in-apis)
+    - [Node API](#node-api)
+    - [Wallet API](#wallet-api)
+  - [Accessing restrictable node API sets](#accessing-restrictable-node-api-sets)
+  - [FAQ](#faq)
+  - [License](#license)
 
 Getting Started
 ---------------
