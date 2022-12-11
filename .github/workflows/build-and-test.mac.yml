@@ -82,8 +82,9 @@ jobs:
         else \
           echo "Pass: got expected error."; \
         fi
-    - name: Node-Test
-      run: |
-        df -h
-        pushd _build
-        ../programs/build_helpers/run-node-test
+
+#    - name: Node-Test
+#      run: |
+#        df -h
+#        pushd _build
+#        ../programs/build_helpers/run-node-test
