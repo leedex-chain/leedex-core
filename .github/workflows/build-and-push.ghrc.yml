@@ -45,6 +45,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          push: contains(github.ref, 'refs/tags/v')
+          push: ${{ contains(github.ref, 'refs/tags/v') }}
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
