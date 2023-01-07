@@ -100,7 +100,7 @@ One can use docker compose to setup a trusted full node together with a
 delayed node like this:
 
 ```
-version: '3'
+version: '1.1'
 services:
 
  fullnode:
