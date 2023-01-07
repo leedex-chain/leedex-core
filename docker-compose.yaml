@@ -1,0 +1,12 @@
+version: '3'
+services:
+
+ fullnode:
+  image: ghrc.io/leedex-chain/leedex-core:latest
+  ports:
+   - "0.0.0.0:8980:8980"
+  volumes:
+  - "leedex-fullnode:/var/lib/leedex"
+
+volumes:
+ leedex-fullnode: { }
