@@ -2,7 +2,7 @@ name: Ubuntu Release
 
 on:
   push:
-    branches: [ main ]
+    branches: [ main, master ]
     tags: [ v* ]
     paths-ignore:
       - '**.md'

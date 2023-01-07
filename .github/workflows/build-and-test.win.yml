@@ -1,7 +1,7 @@
 name: Windows MinGW64
 on:
   push:
-    branches: [ main ]
+    branches: [ main, master ]
     tags: [ v* ]
     paths-ignore:
       - '**.md'
