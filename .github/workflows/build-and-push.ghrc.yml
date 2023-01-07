@@ -1,5 +1,13 @@
 name: Docker
-on: [ push, pull_request ]
+on:
+  push:
+    branches: [ main ]
+    tags: [ v* ]
+    paths-ignore:
+      - '**.md'
+  pull_request:
+    paths-ignore:
+      - '**.md'
 
 env:
   REGISTRY: ghcr.io
@@ -37,6 +45,6 @@ jobs:
         uses: docker/build-push-action@v3
         with:
           context: .
-          push: true
+          push: contains(github.ref, 'refs/tags/v')
           tags: ${{ steps.meta.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}

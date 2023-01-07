@@ -85,7 +85,7 @@ With docker compose, multiple nodes can be managed with a single
       - "leedex-fullnode:/var/lib/leedex"
 
 
-# Docker Hub
+# Registry
 
 This container is properly registered with Ghrc container registry as:
 
@@ -100,7 +100,7 @@ One can use docker compose to setup a trusted full node together with a
 delayed node like this:
 
 ```
-version: '1.1'
+version: '3'
 services:
 
  fullnode:
