@@ -1,100 +1,100 @@
 #!/bin/bash
-BITSHARESD="/usr/local/bin/witness_node"
+LEEDEXD="/usr/local/bin/witness_node"
 
 # For blockchain download
-VERSION=`cat /etc/bitshares/version`
+VERSION=`cat /etc/leedex/version`
 
 ## Supported Environmental Variables
 #
-#   * $BITSHARESD_SEED_NODES
-#   * $BITSHARESD_RPC_ENDPOINT
-#   * $BITSHARESD_PLUGINS
-#   * $BITSHARESD_REPLAY
-#   * $BITSHARESD_RESYNC
-#   * $BITSHARESD_P2P_ENDPOINT
-#   * $BITSHARESD_WITNESS_ID
-#   * $BITSHARESD_PRIVATE_KEY
-#   * $BITSHARESD_TRACK_ACCOUNTS
-#   * $BITSHARESD_PARTIAL_OPERATIONS
-#   * $BITSHARESD_MAX_OPS_PER_ACCOUNT
-#   * $BITSHARESD_ES_NODE_URL
-#   * $BITSHARESD_ES_START_AFTER_BLOCK
-#   * $BITSHARESD_TRUSTED_NODE
+#   * $LEEDEXD_SEED_NODES
+#   * $LEEDEXD_RPC_ENDPOINT
+#   * $LEEDEXD_PLUGINS
+#   * $LEEDEXD_REPLAY
+#   * $LEEDEXD_RESYNC
+#   * $LEEDEXD_P2P_ENDPOINT
+#   * $LEEDEXD_WITNESS_ID
+#   * $LEEDEXD_PRIVATE_KEY
+#   * $LEEDEXD_TRACK_ACCOUNTS
+#   * $LEEDEXD_PARTIAL_OPERATIONS
+#   * $LEEDEXD_MAX_OPS_PER_ACCOUNT
+#   * $LEEDEXD_ES_NODE_URL
+#   * $LEEDEXD_ES_START_AFTER_BLOCK
+#   * $LEEDEXD_TRUSTED_NODE
 #
 
 ARGS=""
 # Translate environmental variables
-if [[ ! -z "$BITSHARESD_SEED_NODES" ]]; then
-    for NODE in $BITSHARESD_SEED_NODES ; do
+if [[ ! -z "$LEEDEXD_SEED_NODES" ]]; then
+    for NODE in $LEEDEXD_SEED_NODES ; do
         ARGS+=" --seed-node=$NODE"
     done
 fi
-if [[ ! -z "$BITSHARESD_RPC_ENDPOINT" ]]; then
-    ARGS+=" --rpc-endpoint=${BITSHARESD_RPC_ENDPOINT}"
+if [[ ! -z "$LEEDEXD_RPC_ENDPOINT" ]]; then
+    ARGS+=" --rpc-endpoint=${LEEDEXD_RPC_ENDPOINT}"
 fi
 
-if [[ ! -z "$BITSHARESD_REPLAY" ]]; then
+if [[ ! -z "$LEEDEXD_REPLAY" ]]; then
     ARGS+=" --replay-blockchain"
 fi
 
-if [[ ! -z "$BITSHARESD_RESYNC" ]]; then
+if [[ ! -z "$LEEDEXD_RESYNC" ]]; then
     ARGS+=" --resync-blockchain"
 fi
 
-if [[ ! -z "$BITSHARESD_P2P_ENDPOINT" ]]; then
-    ARGS+=" --p2p-endpoint=${BITSHARESD_P2P_ENDPOINT}"
+if [[ ! -z "$LEEDEXD_P2P_ENDPOINT" ]]; then
+    ARGS+=" --p2p-endpoint=${LEEDEXD_P2P_ENDPOINT}"
 fi
 
-if [[ ! -z "$BITSHARESD_WITNESS_ID" ]]; then
-    ARGS+=" --witness-id=$BITSHARESD_WITNESS_ID"
+if [[ ! -z "$LEEDEXD_WITNESS_ID" ]]; then
+    ARGS+=" --witness-id=$LEEDEXD_WITNESS_ID"
 fi
 
-if [[ ! -z "$BITSHARESD_PRIVATE_KEY" ]]; then
-    ARGS+=" --private-key=$BITSHARESD_PRIVATE_KEY"
+if [[ ! -z "$LEEDEXD_PRIVATE_KEY" ]]; then
+    ARGS+=" --private-key=$LEEDEXD_PRIVATE_KEY"
 fi
 
-if [[ ! -z "$BITSHARESD_TRACK_ACCOUNTS" ]]; then
-    for ACCOUNT in $BITSHARESD_TRACK_ACCOUNTS ; do
+if [[ ! -z "$LEEDEXD_TRACK_ACCOUNTS" ]]; then
+    for ACCOUNT in $LEEDEXD_TRACK_ACCOUNTS ; do
         ARGS+=" --track-account=$ACCOUNT"
     done
 fi
 
-if [[ ! -z "$BITSHARESD_PARTIAL_OPERATIONS" ]]; then
-    ARGS+=" --partial-operations=${BITSHARESD_PARTIAL_OPERATIONS}"
+if [[ ! -z "$LEEDEXD_PARTIAL_OPERATIONS" ]]; then
+    ARGS+=" --partial-operations=${LEEDEXD_PARTIAL_OPERATIONS}"
 fi
 
-if [[ ! -z "$BITSHARESD_MAX_OPS_PER_ACCOUNT" ]]; then
-    ARGS+=" --max-ops-per-account=${BITSHARESD_MAX_OPS_PER_ACCOUNT}"
+if [[ ! -z "$LEEDEXD_MAX_OPS_PER_ACCOUNT" ]]; then
+    ARGS+=" --max-ops-per-account=${LEEDEXD_MAX_OPS_PER_ACCOUNT}"
 fi
 
-if [[ ! -z "$BITSHARESD_ES_NODE_URL" ]]; then
-    ARGS+=" --elasticsearch-node-url=${BITSHARESD_ES_NODE_URL}"
+if [[ ! -z "$LEEDEXD_ES_NODE_URL" ]]; then
+    ARGS+=" --elasticsearch-node-url=${LEEDEXD_ES_NODE_URL}"
 fi
 
-if [[ ! -z "$BITSHARESD_ES_START_AFTER_BLOCK" ]]; then
-    ARGS+=" --elasticsearch-start-es-after-block=${BITSHARESD_ES_START_AFTER_BLOCK}"
+if [[ ! -z "$LEEDEXD_ES_START_AFTER_BLOCK" ]]; then
+    ARGS+=" --elasticsearch-start-es-after-block=${LEEDEXD_ES_START_AFTER_BLOCK}"
 fi
 
-if [[ ! -z "$BITSHARESD_TRUSTED_NODE" ]]; then
-    ARGS+=" --trusted-node=${BITSHARESD_TRUSTED_NODE}"
+if [[ ! -z "$LEEDEXD_TRUSTED_NODE" ]]; then
+    ARGS+=" --trusted-node=${LEEDEXD_TRUSTED_NODE}"
 fi
 
-## Link the bitshares config file into home
+## Link the leedex config file into home
 ## This link has been created in Dockerfile, already
-ln -f -s /etc/bitshares/config.ini /var/lib/bitshares
-ln -f -s /etc/bitshares/logging.ini /var/lib/bitshares
+ln -f -s /etc/leedex/config.ini /var/lib/leedex
+ln -f -s /etc/leedex/logging.ini /var/lib/leedex
 
-chown -R bitshares:bitshares /var/lib/bitshares
+chown -R leedex:leedex /var/lib/leedex
 
 # Get the latest security updates
 apt-get update && apt-get upgrade -y -o Dpkg::Options::="--force-confold"
 
 # Plugins need to be provided in a space-separated list, which
 # makes it necessary to write it like this
-if [[ ! -z "$BITSHARESD_PLUGINS" ]]; then
-   exec /usr/bin/setpriv --reuid=bitshares --regid=bitshares --clear-groups \
-     "$BITSHARESD" --data-dir "${HOME}" ${ARGS} ${BITSHARESD_ARGS} --plugins "${BITSHARESD_PLUGINS}"
+if [[ ! -z "$LEEDEXD_PLUGINS" ]]; then
+   exec /usr/bin/setpriv --reuid=leedex --regid=leedex --clear-groups \
+     "$LEEDEXD" --data-dir "${HOME}" ${ARGS} ${LEEDEXD_ARGS} --plugins "${LEEDEXD_PLUGINS}"
 else
-   exec /usr/bin/setpriv --reuid=bitshares --regid=bitshares --clear-groups \
-     "$BITSHARESD" --data-dir "${HOME}" ${ARGS} ${BITSHARESD_ARGS}
+   exec /usr/bin/setpriv --reuid=leedex --regid=leedex --clear-groups \
+     "$LEEDEXD" --data-dir "${HOME}" ${ARGS} ${LEEDEXD_ARGS}
 fi
