@@ -34,8 +34,8 @@ RUN \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-ADD . /bitshares-core
-WORKDIR /bitshares-core
+ADD . /leedex-core
+WORKDIR /leedex-core
 
 # Compile
 RUN \
@@ -58,14 +58,14 @@ RUN \
             /usr/local/bin && \
     #
     # Obtain version
-    mkdir -p /etc/bitshares && \
-    git rev-parse --short HEAD > /etc/bitshares/version && \
+    mkdir -p /etc/leedex && \
+    git rev-parse --short HEAD > /etc/leedex/version && \
     cd / && \
-    rm -rf /bitshares-core
+    rm -rf /leedex-core
 
 # The final image
 FROM phusion/baseimage:focal-1.2.0
-LABEL maintainer="The bitshares decentralized organisation"
+LABEL maintainer="The leedex decentralized organisation"
 ENV LANG=en_US.UTF-8
 
 # Install required libraries
@@ -77,27 +77,27 @@ RUN \
       libcurl4 \
       ca-certificates \
     && \
-    mkdir -p /etc/bitshares && \
+    mkdir -p /etc/leedex && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 COPY --from=build /usr/local/bin/* /usr/local/bin/
-COPY --from=build /etc/bitshares/version /etc/bitshares/
+COPY --from=build /etc/leedex/version /etc/leedex/
 
 WORKDIR /
-RUN groupadd -g 10001 bitshares
-RUN useradd -u 10000 -g bitshares -s /bin/bash -m -d /var/lib/bitshares --no-log-init bitshares
-ENV HOME /var/lib/bitshares
-RUN chown bitshares:bitshares -R /var/lib/bitshares
+RUN groupadd -g 10001 leedex
+RUN useradd -u 10000 -g leedex -s /bin/bash -m -d /var/lib/leedex --no-log-init leedex
+ENV HOME /var/lib/leedex
+RUN chown leedex:leedex -R /var/lib/leedex
 
 # default exec/config files
-ADD docker/default_config.ini /etc/bitshares/config.ini
-ADD docker/default_logging.ini /etc/bitshares/logging.ini
-ADD docker/bitsharesentry.sh /usr/local/bin/bitsharesentry.sh
-RUN chmod a+x /usr/local/bin/bitsharesentry.sh
+ADD docker/default_config.ini /etc/leedex/config.ini
+ADD docker/default_logging.ini /etc/leedex/logging.ini
+ADD docker/leedexentry.sh /usr/local/bin/leedexentry.sh
+RUN chmod a+x /usr/local/bin/leedexentry.sh
 
 # Volume
-VOLUME ["/var/lib/bitshares", "/etc/bitshares"]
+VOLUME ["/var/lib/leedex", "/etc/leedex"]
 
 # rpc service:
 EXPOSE 8980
@@ -108,7 +108,7 @@ EXPOSE 4776
 STOPSIGNAL SIGINT
 
 # Temporarily commented out due to permission issues caused by older versions, to be restored in a future version
-#USER bitshares:bitshares
+#USER leedex:leedex
 
 # default execute entry
-ENTRYPOINT ["/usr/local/bin/bitsharesentry.sh"]
+ENTRYPOINT ["/usr/local/bin/leedexentry.sh"]

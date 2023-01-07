@@ -9,13 +9,13 @@ The `Dockerfile` performs the following steps:
 
 1. Obtain base image (phusion/baseimage:0.10.1)
 2. Install required dependencies using `apt-get`
-3. Add bitshares-core source code into container
+3. Add leedex-core source code into container
 4. Update git submodules
 5. Perform `cmake` with build type `Release`
 6. Run `make` and `make_install` (this will install binaries into `/usr/local/bin`
 7. Purge source code off the container
-8. Add a local bitshares user and set `$HOME` to `/var/lib/bitshares`
-9. Make `/var/lib/bitshares` and `/etc/bitshares` a docker *volume*
+8. Add a local leedex user and set `$HOME` to `/var/lib/leedex`
+9. Make `/var/lib/leedex` and `/etc/leedex` a docker *volume*
 10. Expose ports `8980` and `4776`
 11. Add default config from `docker/default_config.ini` and
     `docker/default_logging.ini`
@@ -27,19 +27,19 @@ The entry point simplifies the use of parameters for the `witness_node`
 
 ### Supported Environmental Variables
 
-* `$BITSHARESD_SEED_NODES`
-* `$BITSHARESD_RPC_ENDPOINT`
-* `$BITSHARESD_PLUGINS`
-* `$BITSHARESD_REPLAY`
-* `$BITSHARESD_RESYNC`
-* `$BITSHARESD_P2P_ENDPOINT`
-* `$BITSHARESD_WITNESS_ID`
-* `$BITSHARESD_PRIVATE_KEY`
-* `$BITSHARESD_TRACK_ACCOUNTS`
-* `$BITSHARESD_PARTIAL_OPERATIONS`
-* `$BITSHARESD_MAX_OPS_PER_ACCOUNT`
-* `$BITSHARESD_ES_NODE_URL`
-* `$BITSHARESD_TRUSTED_NODE`
+* `$LEEDEXD_SEED_NODES`
+* `$LEEDEXD_RPC_ENDPOINT`
+* `$LEEDEXD_PLUGINS`
+* `$LEEDEXD_REPLAY`
+* `$LEEDEXD_RESYNC`
+* `$LEEDEXD_P2P_ENDPOINT`
+* `$LEEDEXD_WITNESS_ID`
+* `$LEEDEXD_PRIVATE_KEY`
+* `$LEEDEXD_TRACK_ACCOUNTS`
+* `$LEEDEXD_PARTIAL_OPERATIONS`
+* `$LEEDEXD_MAX_OPS_PER_ACCOUNT`
+* `$LEEDEXD_ES_NODE_URL`
+* `$LEEDEXD_TRUSTED_NODE`
 
 ### Default config
 
@@ -61,38 +61,38 @@ With docker compose, multiple nodes can be managed with a single
     services:
      main:
       # Image to run
-      image: bitshares/bitshares-core:latest
+      image: leedex/leedex-core:latest
       #
       volumes:
-       - ./docker/conf/:/etc/bitshares/
+       - ./docker/conf/:/etc/leedex/
       # Optional parameters
       environment:
-       - BITSHARESD_ARGS=--help
+       - LEEDEXD_ARGS=--help
 
 
     version: '3'
     services:
      fullnode:
       # Image to run
-      image: bitshares/bitshares-core:latest
+      image: leedex/leedex-core:latest
       environment:
       # Optional parameters
       environment:
-       - BITSHARESD_ARGS=--help
+       - LEEDEXD_ARGS=--help
       ports:
        - "0.0.0.0:8980:8980"
       volumes:
-      - "bitshares-fullnode:/var/lib/bitshares"
+      - "leedex-fullnode:/var/lib/leedex"
 
 
-# Docker Hub
+# Registry
 
-This container is properly registered with docker hub under the name:
+This container is properly registered with Ghrc container registry as:
 
-* [bitshares/bitshares-core](https://hub.docker.com/r/bitshares/bitshares-core/)
+* [leedex-chain/leedex-core](ghcr.io/leedex-chain/leedex-core)
 
-Going forward, every release tag as well as all pushes to `develop` and
-`testnet` will be built into ready-to-run containers, there.
+Going forward, every release tag as well as all pushes to `testnet` 
+will be built into ready-to-run containers, there.
 
 # Docker Compose
 
@@ -104,24 +104,24 @@ version: '3'
 services:
 
  fullnode:
-  image: bitshares/bitshares-core:latest
+  image: ghrc.io/leedex-chain/leedex-core:latest
   ports:
    - "0.0.0.0:8980:8980"
   volumes:
-  - "bitshares-fullnode:/var/lib/bitshares"
+  - "leedex-fullnode:/var/lib/leedex"
 
  delayed_node:
-  image: bitshares/bitshares-core:latest
+  image: leedex/leedex-core:latest
   environment:
-   - 'BITSHARESD_PLUGINS=delayed_node witness'
-   - 'BITSHARESD_TRUSTED_NODE=ws://fullnode:8980'
+   - 'LEEDEXD_PLUGINS=delayed_node witness'
+   - 'LEEDEXD_TRUSTED_NODE=ws://fullnode:8980'
   ports:
    - "0.0.0.0:8981:8980"
   volumes:
-  - "bitshares-delayed_node:/var/lib/bitshares"
+  - "leedex-delayed_node:/var/lib/leedex"
   links:
   - fullnode
 
 volumes:
- bitshares-fullnode:
+ leedex-fullnode:
 ```

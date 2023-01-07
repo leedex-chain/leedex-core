@@ -1,0 +1,16 @@
+[Unit]
+Description=leedex witness node
+After=network.target
+[Service]
+User=leedex
+Group=leedex
+Type=forking
+ExecStart=/opt/leedex/bin/witness_node --data-dir=/opt/leedex/data/prod
+Restart=always
+PrivateTmp=true
+TimeoutStopSec=60s
+TimeoutStartSec=2s
+StartLimitInterval=120s
+StartLimitBurst=5
+[Install]
+WantedBy=multi-user.target
