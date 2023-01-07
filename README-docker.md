@@ -87,12 +87,12 @@ With docker compose, multiple nodes can be managed with a single
 
 # Docker Hub
 
-This container is properly registered with docker hub under the name:
+This container is properly registered with Ghrc container registry as:
 
-* [leedex/leedex-core](https://hub.docker.com/r/leedex/leedex-core/)
+* [leedex-chain/leedex-core](ghcr.io/leedex-chain/leedex-core)
 
-Going forward, every release tag as well as all pushes to `develop` and
-`testnet` will be built into ready-to-run containers, there.
+Going forward, every release tag as well as all pushes to `testnet` 
+will be built into ready-to-run containers, there.
 
 # Docker Compose
 
@@ -104,7 +104,7 @@ version: '3'
 services:
 
  fullnode:
-  image: leedex/leedex-core:latest
+  image: ghrc.io/leedex-chain/leedex-core:latest
   ports:
    - "0.0.0.0:8980:8980"
   volumes:
