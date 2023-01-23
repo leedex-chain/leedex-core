@@ -113,9 +113,9 @@ BOOST_AUTO_TEST_CASE( valid_symbol_test )
    BOOST_CHECK( !is_valid_symbol( "0" ) );
    BOOST_CHECK( !is_valid_symbol( "." ) );
 
-   BOOST_CHECK( !is_valid_symbol( "AA" ) );
+   BOOST_CHECK( is_valid_symbol( "AA" ) );
    BOOST_CHECK( !is_valid_symbol( "Aa" ) );
-   BOOST_CHECK( !is_valid_symbol( "A0" ) );
+   BOOST_CHECK( is_valid_symbol( "A0" ) );
    BOOST_CHECK( !is_valid_symbol( "A." ) );
 
    BOOST_CHECK( is_valid_symbol( "AAA" ) );
@@ -471,7 +471,7 @@ BOOST_AUTO_TEST_CASE( merkle_root )
 
    auto c = []( const digest_type& digest ) -> checksum_type
    {   return checksum_type::hash( digest );   };
-   
+
    auto d = []( const digest_type& left, const digest_type& right ) -> digest_type
    {   return digest_type::hash( std::make_pair( left, right ) );   };
 
@@ -486,7 +486,7 @@ BOOST_AUTO_TEST_CASE( merkle_root )
 
    /*
       A=d(0,1)
-         / \ 
+         / \
         0   1
    */
 
@@ -600,7 +600,7 @@ BOOST_AUTO_TEST_CASE( merkle_root )
 
    /*
                                 _____________O=d(M,N)______________
-                               /                                   \   
+                               /                                   \
                      __M=d(I,J)__                                  N=K
                     /            \                              /
             I=d(A,B)              J=d(C,D)                 K=E
@@ -621,7 +621,7 @@ BOOST_AUTO_TEST_CASE( merkle_root )
 
    /*
                                 _____________O=d(M,N)______________
-                               /                                   \   
+                               /                                   \
                      __M=d(I,J)__                                  N=K
                     /            \                              /
             I=d(A,B)              J=d(C,D)                 K=E
