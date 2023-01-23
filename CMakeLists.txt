@@ -1,6 +1,6 @@
 # Defines LEEDEX library target.
 cmake_minimum_required( VERSION 3.2 FATAL_ERROR )
-project( LEEDEX LANGUAGES CXX C)
+project( LEEDEX LANGUAGES CXX C VERSION 0.1.4 )
 
 set( BLOCKCHAIN_NAME "LEEDEX" )
 
@@ -331,7 +331,7 @@ if (ENABLE_INSTALLER)
 
 set(VERSION_MAJOR 0)
 set(VERSION_MINOR 1)
-set(VERSION_PATCH 3)
+set(VERSION_PATCH 4)
 
 
 include(InstallRequiredSystemLibraries)
